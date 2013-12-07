@@ -1,0 +1,21 @@
+{
+  "name": "noflo-teaser",
+  "description": "NoFlo Components for summarizing text. Algorithm by Text Teaser",
+  "repo": "p0wl/noflo-teaser",
+  "version": "0.1.0",
+  "author": {
+    "name": "Paul Mölders",
+    "email": "paulmoelders@gmail.com"
+  },
+  "dependencies": {
+    "noflo": "0.3.x"
+  },
+  "noflo": {
+    "components": {
+      "Keywords": "./components/Keyowrds.coffee",
+      "Ranks": "./components/Ranks.coffee",
+      "SplitSentences": "./components/SplitSentences.coffee",
+      "SplitWords": "./components/SplitWords.coffee"
+    }
+  }
+}
