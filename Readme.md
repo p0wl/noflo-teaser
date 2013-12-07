@@ -1,8 +1,5 @@
 # noflo-teaser
-========
-
 Port of [pyTeaser](https://github.com/xiaoxu193/PyTeaser) using [noflo](https://github.com/noflo/noflo).
-
 
 ## Steps
 1. Port to JS - Done: https://github.com/p0wl/jsTeaser
