@@ -1,8 +1,8 @@
 noflo = require 'noflo'
 
-class Ranks extends noflo.component
+class Ranks extends noflo.Component
 
-	description 'Ranks sentence by title and keywords'
+  description: 'Ranks sentence by title and keywords'
 
   constructor: ->
     @inPorts =
@@ -13,10 +13,10 @@ class Ranks extends noflo.component
     @outPorts =
       out: new noflo.Port
 
-    @inPorts.in.on 'data', (data) =>
+    @inPorts.sentence.on 'data', (data) =>
       @outPorts.out.send data
 
-    @inPorts.in.on 'disconnect', =>
+    @inPorts.sentence.on 'disconnect', =>
       @outPorts.out.disconnect() if @outPorts.out.isAttached()
 
-exports.getComponent = -> new Ranks()
+exports.getComponent = -> new Ranks

@@ -1,8 +1,8 @@
 noflo = require 'noflo'
 
-class Keywords extends noflo.component
+class Keywords extends noflo.Component
 
-	description 'Extracts Keywords from a given sentence'
+  description: 'Extracts Keywords from a given sentence'
 
   constructor: ->
     @inPorts =
@@ -17,4 +17,4 @@ class Keywords extends noflo.component
     @inPorts.in.on 'disconnect', =>
       @outPorts.out.disconnect() if @outPorts.out.isAttached()
 
-exports.getComponent = -> new Keywords()
+exports.getComponent = -> new Keywords

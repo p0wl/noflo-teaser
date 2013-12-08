@@ -1,8 +1,8 @@
 noflo = require 'noflo'
 
-class Top extends noflo.component
+class Top extends noflo.Component
 
-	description 'Returns only the top <count>, ordered by <attribute>'
+	description: 'Returns only the top <count>, ordered by <attribute>'
 
   constructor: ->
     @inPorts =
@@ -19,4 +19,4 @@ class Top extends noflo.component
     @inPorts.in.on 'disconnect', =>
       @outPorts.out.disconnect() if @outPorts.out.isAttached()
 
-exports.getComponent = -> new Ranks()
+exports.getComponent = -> new Top

@@ -1,3 +1,6 @@
-'title' -> TITLE summarize(teaser/Summarize)
-'text' -> TEXT summarize
+# In the graph we first need to define the nodes and the connections between them
 
+Keywords(teaser/Keywords) OUT -> IN Display(core/Output)
+
+# Start off the graph by sending a filename to the file reader
+'./node_modules/noflo-teaser/components/Keywords.coffee' -> IN Keywords()

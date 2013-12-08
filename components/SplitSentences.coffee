@@ -1,8 +1,8 @@
 noflo = require 'noflo'
 
-class SplitSentences extends noflo.component
+class SplitSentences extends noflo.Component
 
-	description 'Splits text to single sentences'
+	description: 'Splits text to single sentences'
 
   constructor: ->
     @inPorts =
@@ -17,4 +17,4 @@ class SplitSentences extends noflo.component
     @inPorts.in.on 'disconnect', =>
       @outPorts.out.disconnect() if @outPorts.out.isAttached()
 
-exports.getComponent = -> new SplitSentences()
+exports.getComponent = -> new SplitSentences

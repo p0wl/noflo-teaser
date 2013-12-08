@@ -12,10 +12,13 @@
   },
   "noflo": {
     "components": {
-      "Keywords": "./components/Keyowrds.coffee",
+      "Keywords": "./components/Keywords.coffee",
       "Ranks": "./components/Ranks.coffee",
       "SplitSentences": "./components/SplitSentences.coffee",
       "SplitWords": "./components/SplitWords.coffee"
     }
+  },
+  "devDependencies": {
+    "noflo-core": "~0.1.3"
   }
 }
