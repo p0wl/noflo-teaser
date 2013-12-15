@@ -1,0 +1,15 @@
+### CONFIGURATION
+'words' -> KEY Cache(cache/Cache)
+'badwords.txt' -> IN Badwords(teaser/JsonFileToPackets)
+
+Badwords() OUT -> IN Split(core/Split)
+Split() OUT -> DENY Guard(flow/Deny)
+
+# Needs to wait until everything is loaded.
+Split() OUT -> IN KickIt(teaser/KickOnDisconnect)
+KickIt() OUT -> FLUSH Cache()
+Cache() OUT -> IN Guard()
+
+
+'bla' -> IN Cache()
+Guard() OUT -> IN Console(core/Output)

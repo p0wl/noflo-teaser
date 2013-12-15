@@ -1,0 +1,6 @@
+# Reads json from file and sends each entry as an ip
+EXPORT=SPLITARRAY.OUT:OUT
+EXPORT=READ.IN:IN
+
+Read(filesystem/ReadFile) OUT -> IN Parser(strings/ParseJson)
+Parser() OUT -> IN SplitArray(objects/SplitArray)

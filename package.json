@@ -13,7 +13,10 @@
     "noflo-underscore": "git://github.com/p0wl/noflo-underscore.git#sortBy",
     "underscore": "~1.5.2",
     "noflo-objects": "~0.1.8",
-    "noflo-packets": "~0.1.2"
+    "noflo-packets": "~0.1.2",
+    "noflo-flow": "~0.3.3",
+    "noflo-cache": "0.0.3",
+    "noflo-filesystem": "~1.0.4"
   },
   "noflo": {
     "components": {
@@ -24,7 +27,8 @@
       "Top": "./components/Top.coffee"
     },
     "graphs": {
-       "KickOnDisconnect": "./graphs/KickOnDisconnect.fbp"
+      "KickOnDisconnect": "./graphs/KickOnDisconnect.fbp",
+      "JsonFileToPackets": "./graphs/JsonFileToPackets.fbp"
     }
   },
   "devDependencies": {
