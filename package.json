@@ -22,6 +22,9 @@
       "Score": "./components/Score.coffee",
       "Forward": "./components/Forward.coffee",
       "Top": "./components/Top.coffee"
+    },
+    "graphs": {
+       "KickOnDisconnect": "./graphs/KickOnDisconnect.fbp"
     }
   },
   "devDependencies": {
