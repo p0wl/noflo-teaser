@@ -1,4 +1,8 @@
-
+### Configuration
+'score' -> PROPERTY SortBy(underscore/SortBy)
+'desc' -> ORDER SortBy()
+'sentence' -> KEY Extractor(objects/ExtractProperty)
+'5' -> LENGTH Top(packets/Range)
 
 ### INIT
 TextForward(teaser/Forward) OUT -> INTEXT Summarize(teaser/Summarize)
@@ -20,11 +24,12 @@ Text() OUT -> IN Keywords(teaser/Keywords)
 Keywords() OUT -> KEYWORDS Score()
 
 
-
-
 ### Score sentences in relation to title and keywords
-Score() OUT -> IN Top(teaser/Top)
+Score() OUT -> IN SortBy()
 
+SortBy() OUT -> IN Extractor()
+
+Extractor() OUT -> IN Top()
 Top() OUT -> IN Console(core/Output)
 
 '. ' -> DELIMITER SplitSentences()
