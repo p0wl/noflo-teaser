@@ -1,5 +1,6 @@
 noflo = require 'noflo'
-p
+jsTeaser = require './../node_modules/jsTeaser/jsTeaser.js'
+
 class Score extends noflo.Component
 
   description: 'Ranks sentence by title and keywords'
