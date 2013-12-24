@@ -16,11 +16,15 @@ Text() OUT -> IN SplitSentences(strings/SplitStr)
 SplitSentences() OUT -> SENTENCES Score(teaser/Score)
 
 ### Get Words from Title
-Summarize() TITLE -> IN SplitWords(strings/SplitStr)
-SplitWords() OUT -> TITLE Score()
+Summarize() TITLE -> IN SplitTitleWords(strings/SplitStr)
+SplitTitleWords() OUT -> TITLE Score()
+
+### Filter Badwords
+Text() OUT -> IN SplitTextWords(strings/SplitStr)
+SplitTextWords() OUT -> IN FilterBadwords(teaser/FilterBadwords)
 
 ### Get Keywords
-Text() OUT -> IN Keywords(teaser/Keywords)
+FilterBadwords() OUT -> IN Keywords(teaser/Keywords)
 Keywords() OUT -> KEYWORDS Score()
 
 
@@ -33,7 +37,8 @@ Extractor() OUT -> IN Top()
 Top() OUT -> IN Console(core/Output)
 
 '. ' -> DELIMITER SplitSentences()
-' ' -> DELIMITER SplitWords()
+' ' -> DELIMITER SplitTitleWords()
+' ' -> DELIMITER SplitTextWords()
 
 ### TITLE
 'Four Steps to Google, Without a Degree' -> IN TitleForward()

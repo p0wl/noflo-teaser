@@ -28,6 +28,7 @@
     },
     "graphs": {
       "KickOnDisconnect": "./graphs/KickOnDisconnect.fbp",
+      "FilterBadwords": "./graphs/FilterBadwords.fbp",
       "JsonFileToPackets": "./graphs/JsonFileToPackets.fbp"
     }
   },

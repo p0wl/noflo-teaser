@@ -21,7 +21,7 @@ class Keywords extends noflo.Component
       @outPorts.out.disconnect() if @outPorts.out.isAttached()
 
   getKeywords = (text) ->
-    text = splitWords(text)
+    #text = splitWords(text) -- moved to component
     numWords = text.length
     text = removeStopWords(text)
     keywords = mostCommon(text)
