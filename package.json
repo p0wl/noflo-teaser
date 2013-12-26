@@ -29,7 +29,8 @@
     "graphs": {
       "KickOnDisconnect": "./graphs/KickOnDisconnect.fbp",
       "FilterBadwords": "./graphs/FilterBadwords.fbp",
-      "JsonFileToPackets": "./graphs/JsonFileToPackets.fbp"
+      "JsonFileToPackets": "./graphs/JsonFileToPackets.fbp",
+      "Teaser": "./graphs/Teaser.fbp"
     }
   },
   "devDependencies": {

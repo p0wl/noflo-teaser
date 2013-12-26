@@ -1,0 +1,348 @@
+{
+    "properties": {
+        "environment": {
+            "runtime": "html",
+            "src": "./preview/iframe.html",
+            "width": 300,
+            "height": 300
+        }
+    },
+    "exports": [
+        {
+            "public": "top",
+            "private": "top.length"
+        },
+        {
+            "public": "title",
+            "private": "titleforward.in"
+        },
+        {
+            "public": "content",
+            "private": "textforward.in"
+        },
+        {
+            "public": "out",
+            "private": "top.out"
+        }
+    ],
+    "groups": [],
+    "processes": {
+        "SortBy": {
+            "component": "underscore/SortBy",
+            "metadata": {
+                "x": 761,
+                "y": 494
+            }
+        },
+        "Extractor": {
+            "component": "objects/ExtractProperty",
+            "metadata": {
+                "x": 955,
+                "y": 344
+            }
+        },
+        "TextForward": {
+            "component": "teaser/Forward",
+            "metadata": {
+                "x": -312,
+                "y": 114
+            }
+        },
+        "Summarize": {
+            "component": "teaser/Summarize",
+            "metadata": {
+                "x": -93,
+                "y": 202
+            }
+        },
+        "TitleForward": {
+            "component": "teaser/Forward",
+            "metadata": {
+                "x": -330,
+                "y": 256
+            }
+        },
+        "Text": {
+            "component": "core/Split",
+            "metadata": {
+                "x": 125,
+                "y": 22
+            }
+        },
+        "SplitSentences": {
+            "component": "strings/SplitStr",
+            "metadata": {
+                "x": 233,
+                "y": 242
+            }
+        },
+        "Score": {
+            "component": "teaser/Score",
+            "metadata": {
+                "x": 454,
+                "y": 416
+            }
+        },
+        "SplitTitleWords": {
+            "component": "strings/SplitStr",
+            "metadata": {
+                "x": 133,
+                "y": 361
+            }
+        },
+        "SplitTextWords": {
+            "component": "strings/SplitStr",
+            "metadata": {
+                "x": 345,
+                "y": 99
+            }
+        },
+        "FilterBadwords": {
+            "component": "teaser/FilterBadwords",
+            "metadata": {
+                "x": 558,
+                "y": 104
+            }
+        },
+        "Keywords": {
+            "component": "teaser/Keywords",
+            "metadata": {
+                "x": 588,
+                "y": 216
+            }
+        },
+        "Top": {
+            "component": "packets/Range",
+            "metadata": {
+                "x": 1141,
+                "y": 207
+            }
+        }
+    },
+    "connections": [
+        {
+            "src": {
+                "process": "TextForward",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Summarize",
+                "port": "intext"
+            },
+            "metadata": {
+                "route": 8
+            }
+        },
+        {
+            "src": {
+                "process": "TitleForward",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Summarize",
+                "port": "intitle"
+            },
+            "metadata": {
+                "route": 1
+            }
+        },
+        {
+            "src": {
+                "process": "Summarize",
+                "port": "text"
+            },
+            "tgt": {
+                "process": "Text",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "Text",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "SplitSentences",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 8
+            }
+        },
+        {
+            "src": {
+                "process": "SplitSentences",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Score",
+                "port": "sentences"
+            },
+            "metadata": {
+                "route": 8
+            }
+        },
+        {
+            "src": {
+                "process": "Summarize",
+                "port": "title"
+            },
+            "tgt": {
+                "process": "SplitTitleWords",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 1
+            }
+        },
+        {
+            "src": {
+                "process": "SplitTitleWords",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Score",
+                "port": "title"
+            },
+            "metadata": {
+                "route": 1
+            }
+        },
+        {
+            "src": {
+                "process": "Text",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "SplitTextWords",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 6
+            }
+        },
+        {
+            "src": {
+                "process": "SplitTextWords",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "FilterBadwords",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 6
+            }
+        },
+        {
+            "src": {
+                "process": "FilterBadwords",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Keywords",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 6
+            }
+        },
+        {
+            "src": {
+                "process": "Keywords",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Score",
+                "port": "keywords"
+            },
+            "metadata": {
+                "route": 6
+            }
+        },
+        {
+            "src": {
+                "process": "Score",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "SortBy",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 10
+            }
+        },
+        {
+            "src": {
+                "process": "SortBy",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Extractor",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 10
+            }
+        },
+        {
+            "src": {
+                "process": "Extractor",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Top",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 10
+            }
+        },
+        {
+            "data": "score",
+            "tgt": {
+                "process": "SortBy",
+                "port": "property"
+            }
+        },
+        {
+            "data": "desc",
+            "tgt": {
+                "process": "SortBy",
+                "port": "order"
+            }
+        },
+        {
+            "data": "sentence",
+            "tgt": {
+                "process": "Extractor",
+                "port": "key"
+            }
+        },
+        {
+            "data": ". ",
+            "tgt": {
+                "process": "SplitSentences",
+                "port": "delimiter"
+            }
+        },
+        {
+            "data": " ",
+            "tgt": {
+                "process": "SplitTitleWords",
+                "port": "delimiter"
+            }
+        },
+        {
+            "data": " ",
+            "tgt": {
+                "process": "SplitTextWords",
+                "port": "delimiter"
+            }
+        }
+    ]
+}
