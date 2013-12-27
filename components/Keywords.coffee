@@ -10,6 +10,7 @@ class Keywords extends noflo.Component
   constructor: ->
     @inPorts =
       in: new noflo.Port
+      top: new noflo.Port
 
     @outPorts =
       out: new noflo.Port

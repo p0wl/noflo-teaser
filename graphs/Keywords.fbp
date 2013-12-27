@@ -1,0 +1,6 @@
+'a,b,c' -> IN Forward(teaser/Forward)
+'10' -> IN Forwardsecond(teaser/Forward)
+
+Forward() OUT -> IN Keywords(teaser/Keywords)
+Forwardsecond() OUT -> TOP Keywords()
+Keywords() OUT -> IN Console(core/Output)
