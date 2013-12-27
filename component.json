@@ -1,0 +1,40 @@
+{
+    "name": "noflo-teaser",
+    "description": "NoFlo Components for summarizing text. Algorithm by Text Teaser",
+    "repo": "p0wl/noflo-teaser",
+    "version": "0.1.0",
+    "author": {
+        "name": "Paul Mölders",
+        "email": "paulmoelders@gmail.com"
+    },
+    "dependencies": {
+        "noflo/noflo": "*"
+    },
+    "scripts": [
+        "components/Summarize.coffee",
+        "components/Keywords.coffee",
+        "components/Score.coffee",
+        "components/Forward.coffee",
+        "graphs/KickOnDisconnect.fbp",
+        "graphs/FilterBadwords.fbp",
+        "graphs/JsonFileToPackets.fbp",
+        "graphs/Teaser.fbp"
+    ],
+    "json": [
+        "component.json"
+    ],
+    "noflo": {
+        "components": {
+            "Summarize": "components/Summarize.coffee",
+            "Keywords": "components/Keywords.coffee",
+            "Score": "components/Score.coffee",
+            "Forward": "components/Forward.coffee"
+        },
+        "graphs": {
+            "KickOnDisconnect": "./graphs/KickOnDisconnect.fbp",
+            "FilterBadwords": "./graphs/FilterBadwords.fbp",
+            "JsonFileToPackets": "./graphs/JsonFileToPackets.fbp",
+            "Teaser": "./graphs/Teaser.fbp"
+        }
+    }
+}
