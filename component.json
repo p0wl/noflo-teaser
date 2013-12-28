@@ -14,11 +14,7 @@
         "components/Summarize.coffee",
         "components/Keywords.coffee",
         "components/Score.coffee",
-        "components/Forward.coffee",
-        "graphs/KickOnDisconnect.fbp",
-        "graphs/FilterBadwords.fbp",
-        "graphs/JsonFileToPackets.fbp",
-        "graphs/Teaser.fbp"
+        "components/Forward.coffee"
     ],
     "json": [
         "component.json"
