@@ -1,0 +1,6 @@
+# Test file
+
+'["title", "with", "GOOGLE"]' -> TITLE ScoreByTitle(teaser/ScoreByTitle)
+'{"sentence": ["a", "GOOGLE", "BUILT", "by", "whitespace"], "score": 3 }' -> IN Parse(strings/ParseJson)
+Parse() OUT -> SENTENCE ScoreByTitle()
+ScoreByTitle() SCORE -> IN Console(core/Output)

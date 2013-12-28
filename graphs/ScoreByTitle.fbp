@@ -1,8 +1,14 @@
-# ScoreByTitle.fbp
-
 EXPORT=GUARD.ACCEPT:TITLE
-EXPORT=GUARD.IN:SENTENCE
+EXPORT=SPLIT.IN:SENTENCE
 EXPORT=SCORE.COUNT:SCORE
+
+'sentence' -> KEY ExtractSentence(objects/ExtractProperty)
+'score' -> KEY ExtractScore(objects/ExtractProperty)
+
+Split(core/Split) OUT -> IN ExtractSentence()
+Split() OUT -> IN ExtractScore()
+
+
 
 #'TITLE: GOOGLE BUILT CAR' -> IN Title(strings/SplitStr)
 #'This is a Sentence with a Keyword: GOOGLE BUILT A CAR' -> IN Text(strings/SplitStr)
@@ -10,8 +16,7 @@ EXPORT=SCORE.COUNT:SCORE
 #' ' -> DELIMITER Title()
 #' ' -> DELIMITER Text()
 
-#Title() OUT -> ACCEPT Guard(flow/Accept)
-#Text() OUT -> IN Guard()
+ExtractSentence() OUT -> IN Guard()
 
 Guard() OUT -> IN Score(packets/Counter)
 Score() OUT -> IN Drop(core/Drop)
