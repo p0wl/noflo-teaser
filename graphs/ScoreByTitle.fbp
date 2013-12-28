@@ -1,0 +1,22 @@
+# ScoreByTitle.fbp
+
+EXPORT=GUARD.ACCEPT:TITLE
+EXPORT=GUARD.IN:SENTENCE
+EXPORT=SCORE.COUNT:SCORE
+
+#'TITLE: GOOGLE BUILT CAR' -> IN Title(strings/SplitStr)
+#'This is a Sentence with a Keyword: GOOGLE BUILT A CAR' -> IN Text(strings/SplitStr)
+
+#' ' -> DELIMITER Title()
+#' ' -> DELIMITER Text()
+
+#Title() OUT -> ACCEPT Guard(flow/Accept)
+#Text() OUT -> IN Guard()
+
+Guard() OUT -> IN Score(packets/Counter)
+Score() OUT -> IN Drop(core/Drop)
+#Score() COUNT -> IN Console(core/Output)
+
+
+
+
