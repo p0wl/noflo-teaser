@@ -1,12 +1,14 @@
 EXPORT=GUARD.ACCEPT:TITLE
 EXPORT=SPLIT.IN:SENTENCE
-EXPORT=SCORE.COUNT:SCORE
+EXPORT=SETSCORE.OUT:OUT
 
 'sentence' -> KEY ExtractSentence(objects/ExtractProperty)
 'score' -> KEY ExtractScore(objects/ExtractProperty)
+'score' -> PROPERTY SetScore(objects/SetPropertyValue)
 
 Split(core/Split) OUT -> IN ExtractSentence()
 Split() OUT -> IN ExtractScore()
+ExtractSentence() OUT -> IN SplitArray(objects/SplitArray)
 
 
 
@@ -16,10 +18,17 @@ Split() OUT -> IN ExtractScore()
 #' ' -> DELIMITER Title()
 #' ' -> DELIMITER Text()
 
-ExtractSentence() OUT -> IN Guard()
+SplitArray() OUT -> IN Guard(flow/Accept)
 
 Guard() OUT -> IN Score(packets/Counter)
 Score() OUT -> IN Drop(core/Drop)
+Score() COUNT -> ADDEND SyncScore(math/Add)
+ExtractScore() OUT -> AUGEND SyncScore()
+
+# Update IP
+Split() OUT -> IN SetScore()
+SyncScore() SUM -> VALUE SetScore()
+
 #Score() COUNT -> IN Console(core/Output)
 
 

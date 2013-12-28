@@ -1,6 +1,13 @@
 # Test file
 
-'["title", "with", "GOOGLE"]' -> TITLE ScoreByTitle(teaser/ScoreByTitle)
-'{"sentence": ["a", "GOOGLE", "BUILT", "by", "whitespace"], "score": 3 }' -> IN Parse(strings/ParseJson)
+'["title", "BUILT", "GOOGLE"]' -> IN Parser(strings/ParseJson)
+Parser() OUT -> IN SplitArray(objects/SplitArray)
+SplitArray() OUT -> TITLE ScoreByTitle(teaser/ScoreByTitle)
+'{"sentence": ["a", "GOOGLE", "BUILT", "by", "whitespace"], "score": 0 }' -> IN Parse(strings/ParseJson)
 Parse() OUT -> SENTENCE ScoreByTitle()
-ScoreByTitle() SCORE -> IN Console(core/Output)
+
+
+ScoreByTitle() OUT -> IN Console(core/Output)
+
+
+### ABSTRACT WRAP / UNWRAP -> use in every score method

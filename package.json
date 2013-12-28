@@ -16,7 +16,8 @@
     "noflo-packets": "~0.1.2",
     "noflo-flow": "~0.3.3",
     "noflo-cache": "0.0.3",
-    "noflo-filesystem": "~1.0.4"
+    "noflo-filesystem": "~1.0.4",
+    "noflo-math": "0.0.4"
   },
   "noflo": {
     "components": {
