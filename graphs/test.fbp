@@ -3,7 +3,7 @@
 '["title", "BUILT", "GOOGLE"]' -> IN Parser(strings/ParseJson)
 Parser() OUT -> IN SplitArray(objects/SplitArray)
 SplitArray() OUT -> TITLE ScoreByTitle(teaser/ScoreByTitle)
-'{"sentence": ["a", "GOOGLE", "BUILT", "by", "whitespace"], "score": 0 }' -> IN Parse(strings/ParseJson)
+'{"sentence": ["a", "GOOGLE", "BUILT", "by", "whitespace"], "score": 1, "position": 1 }' -> IN Parse(strings/ParseJson)
 Parse() OUT -> SENTENCE ScoreByTitle()
 
 
