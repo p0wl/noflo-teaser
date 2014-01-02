@@ -1,0 +1,22 @@
+EXPORT=SPLIT.IN:SENTENCE
+EXPORT=DIVIDE.DIVISOR:LENGTH
+EXPORT=SETSCORE.OUT:OUT
+
+# Configuration
+'score' -> KEY ExtractScore(objects/ExtractProperty)
+'score' -> PROPERTY SetScore(objects/SetPropertyValue)
+'position' -> KEY ExtractPosition(objects/ExtractProperty)
+
+# Evaluate Score By Position in Full Text
+Split(core/Split) OUT -> IN ExtractPosition()
+ExtractPosition() OUT -> DIVIDEND Divide(math/Divide)
+Divide() QUOTIENT -> IN Relevance(teaser/RelevanceByPosition)
+
+# Update Score
+Split() OUT -> IN ExtractScore()
+Relevance() OUT -> ADDEND Add(math/Add)
+ExtractScore() OUT -> AUGEND Add()
+
+# Update IP
+Split() OUT -> IN SetScore()
+Add() SUM -> VALUE SetScore()

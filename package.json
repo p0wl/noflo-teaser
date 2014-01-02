@@ -1,42 +1,44 @@
 {
-  "name": "noflo-teaser",
-  "description": "NoFlo Components for summarizing text. Algorithm by Text Teaser",
-  "repo": "p0wl/noflo-teaser",
-  "version": "0.1.0",
-  "author": {
-    "name": "Paul Mölders",
-    "email": "paulmoelders@gmail.com"
-  },
-  "dependencies": {
-    "noflo": "0.3.x",
-    "noflo-strings": "~0.1.5",
-    "noflo-underscore": "git://github.com/p0wl/noflo-underscore.git#sortBy",
-    "underscore": "~1.5.2",
-    "noflo-objects": "~0.1.8",
-    "noflo-packets": "~0.1.2",
-    "noflo-flow": "~0.3.3",
-    "noflo-cache": "0.0.3",
-    "noflo-filesystem": "~1.0.4",
-    "noflo-math": "0.0.4"
-  },
-  "noflo": {
-    "components": {
-      "Summarize": "./components/Summarize.coffee",
-      "Keywords": "./components/Keywords.coffee",
-      "Score": "./components/Score.coffee",
-      "Forward": "./components/Forward.coffee",
-      "Top": "./components/Top.coffee"
+    "name": "noflo-teaser",
+    "description": "NoFlo Components for summarizing text. Algorithm by Text Teaser",
+    "repo": "p0wl/noflo-teaser",
+    "version": "0.1.0",
+    "author": {
+        "name": "Paul Mölders",
+        "email": "paulmoelders@gmail.com"
     },
-    "graphs": {
-      "KickOnDisconnect": "./graphs/KickOnDisconnect.fbp",
-      "FilterBadwords": "./graphs/FilterBadwords.fbp",
-      "JsonFileToPackets": "./graphs/JsonFileToPackets.fbp",
-      "ScoreByTitle": "./graphs/ScoreByTitle.fbp",
-      "Teaser": "./graphs/Teaser.fbp"
+    "dependencies": {
+        "noflo": "0.3.x",
+        "noflo-strings": "~0.1.5",
+        "noflo-underscore": "git://github.com/p0wl/noflo-underscore.git#sortBy",
+        "underscore": "~1.5.2",
+        "noflo-objects": "~0.1.8",
+        "noflo-packets": "~0.1.2",
+        "noflo-flow": "~0.3.3",
+        "noflo-cache": "0.0.3",
+        "noflo-filesystem": "~1.0.4",
+        "noflo-math": "0.0.4"
+    },
+    "noflo": {
+        "components": {
+            "Summarize": "./components/Summarize.coffee",
+            "Keywords": "./components/Keywords.coffee",
+            "Score": "./components/Score.coffee",
+            "Forward": "./components/Forward.coffee",
+            "Top": "./components/Top.coffee",
+            "RelevanceByPosition": "./components/RelevanceByPosition.coffee"
+        },
+        "graphs": {
+            "KickOnDisconnect": "./graphs/KickOnDisconnect.fbp",
+            "FilterBadwords": "./graphs/FilterBadwords.fbp",
+            "JsonFileToPackets": "./graphs/JsonFileToPackets.fbp",
+            "ScoreByTitle": "./graphs/ScoreByTitle.fbp",
+            "ScoreByPosition": "./graphs/ScoreByPosition.fbp",
+            "Teaser": "./graphs/Teaser.fbp"
+        }
+    },
+    "devDependencies": {
+        "noflo-core": "~0.1.3",
+        "jsTeaser": "git+ssh://git@github.com:p0wl/jsTeaser.git"
     }
-  },
-  "devDependencies": {
-    "noflo-core": "~0.1.3",
-    "jsTeaser": "git+ssh://git@github.com:p0wl/jsTeaser.git"
-  }
 }
