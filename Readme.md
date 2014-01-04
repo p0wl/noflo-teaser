@@ -7,3 +7,7 @@ Port of [pyTeaser](https://github.com/xiaoxu193/PyTeaser) using [noflo](https://
 3. Visualize
 4. ???
 5. Profit (BS thesis)
+
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/p0wl/noflo-teaser/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
