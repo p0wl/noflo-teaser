@@ -26,85 +26,106 @@
     "Title": {
       "component": "core/Repeat",
       "metadata": {
-        "x": -41,
-        "y": 13
+        "x": 271,
+        "y": 2
       }
     },
-    "Guard": {
-      "component": "flow/Accept",
+    "CountTitleLength": {
+      "component": "packets/Counter",
       "metadata": {
-        "x": 708,
-        "y": 42
+        "x": 488,
+        "y": 2
       }
     },
     "Sentence": {
       "component": "core/Repeat",
       "metadata": {
-        "x": -44,
-        "y": 153
+        "x": 270,
+        "y": 118
       }
     },
     "Split": {
       "component": "core/Split",
       "metadata": {
-        "x": 173,
-        "y": 258
+        "x": 480,
+        "y": 283
       }
     },
     "SetScore": {
       "component": "objects/SetPropertyValue",
       "metadata": {
-        "x": 917,
-        "y": 362
+        "x": 1200,
+        "y": 386
       }
     },
     "Result": {
       "component": "core/Repeat",
       "metadata": {
-        "x": 1132,
-        "y": 362
+        "x": 1467,
+        "y": 396
       }
     },
     "ExtractSentence": {
       "component": "objects/ExtractProperty",
       "metadata": {
-        "x": 385,
-        "y": 118
+        "x": 569,
+        "y": 134
       }
     },
     "ExtractScore": {
       "component": "objects/ExtractProperty",
       "metadata": {
-        "x": 399,
-        "y": 257
+        "x": 779,
+        "y": 250
+      }
+    },
+    "Multiply": {
+      "component": "math/Multiply",
+      "metadata": {
+        "x": 1270,
+        "y": 88
+      }
+    },
+    "Guard": {
+      "component": "flow/Accept",
+      "metadata": {
+        "x": 783,
+        "y": -66
       }
     },
     "SplitArray": {
       "component": "objects/SplitArray",
       "metadata": {
-        "x": 599,
-        "y": 140
+        "x": 782,
+        "y": 133
       }
     },
     "Counter": {
       "component": "packets/Counter",
       "metadata": {
-        "x": 913,
-        "y": 68
+        "x": 1025,
+        "y": -70
       }
     },
     "Drop": {
       "component": "core/Drop",
       "metadata": {
-        "x": 1135,
-        "y": 68
+        "x": 1256,
+        "y": -70
+      }
+    },
+    "Divide": {
+      "component": "math/Divide",
+      "metadata": {
+        "x": 1026,
+        "y": 83
       }
     },
     "Add": {
       "component": "math/Add",
       "metadata": {
-        "x": 703,
-        "y": 240
+        "x": 1205,
+        "y": 231
       }
     }
   },
@@ -115,11 +136,11 @@
         "port": "out"
       },
       "tgt": {
-        "process": "Guard",
-        "port": "accept"
+        "process": "CountTitleLength",
+        "port": "in"
       },
       "metadata": {
-        "route": 6
+        "route": 7
       }
     },
     {
@@ -132,7 +153,7 @@
         "port": "in"
       },
       "metadata": {
-        "route": 6
+        "route": 7
       }
     },
     {
@@ -145,7 +166,7 @@
         "port": "in"
       },
       "metadata": {
-        "route": 11
+        "route": 3
       }
     },
     {
@@ -158,7 +179,20 @@
         "port": "in"
       },
       "metadata": {
-        "route": 9
+        "route": 7
+      }
+    },
+    {
+      "src": {
+        "process": "CountTitleLength",
+        "port": "out"
+      },
+      "tgt": {
+        "process": "Guard",
+        "port": "accept"
+      },
+      "metadata": {
+        "route": 7
       }
     },
     {
@@ -171,7 +205,7 @@
         "port": "in"
       },
       "metadata": {
-        "route": 3
+        "route": 7
       }
     },
     {
@@ -184,7 +218,7 @@
         "port": "in"
       },
       "metadata": {
-        "route": 9
+        "route": 7
       }
     },
     {
@@ -225,15 +259,54 @@
     },
     {
       "src": {
+        "process": "CountTitleLength",
+        "port": "count"
+      },
+      "tgt": {
+        "process": "Divide",
+        "port": "divisor"
+      },
+      "metadata": {
+        "route": 5
+      }
+    },
+    {
+      "src": {
         "process": "Counter",
         "port": "count"
+      },
+      "tgt": {
+        "process": "Divide",
+        "port": "dividend"
+      },
+      "metadata": {
+        "route": 5
+      }
+    },
+    {
+      "src": {
+        "process": "Divide",
+        "port": "quotient"
+      },
+      "tgt": {
+        "process": "Multiply",
+        "port": "multiplicand"
+      },
+      "metadata": {
+        "route": 3
+      }
+    },
+    {
+      "src": {
+        "process": "Multiply",
+        "port": "product"
       },
       "tgt": {
         "process": "Add",
         "port": "addend"
       },
       "metadata": {
-        "route": 9
+        "route": 3
       }
     },
     {
@@ -246,7 +319,7 @@
         "port": "augend"
       },
       "metadata": {
-        "route": 3
+        "route": 2
       }
     },
     {
@@ -259,7 +332,7 @@
         "port": "in"
       },
       "metadata": {
-        "route": 3
+        "route": 7
       }
     },
     {
@@ -272,7 +345,7 @@
         "port": "value"
       },
       "metadata": {
-        "route": 11
+        "route": 3
       }
     },
     {
@@ -294,6 +367,13 @@
       "tgt": {
         "process": "SetScore",
         "port": "property"
+      }
+    },
+    {
+      "data": "1.5",
+      "tgt": {
+        "process": "Multiply",
+        "port": "multiplier"
       }
     }
   ]
