@@ -26,6 +26,7 @@
             "Score": "./components/Score.coffee",
             "Forward": "./components/Forward.coffee",
             "Top": "./components/Top.coffee",
+            "Step": "./components/Step.coffee",
             "RelevanceByPosition": "./components/RelevanceByPosition.coffee",
             "RelevanceByLength": "./components/RelevanceByLength.coffee"
         },
@@ -36,7 +37,6 @@
             "ScoreByTitle": "./graphs/ScoreByTitle.fbp",
             "ScoreByPosition": "./graphs/ScoreByPosition.fbp",
             "ScoreByLength": "./graphs/ScoreByLength.fbp",
-            "ScoreStep": "./graphs/ScoreStep.fbp",
             "Teaser": "./graphs/Teaser.fbp"
         }
     },
