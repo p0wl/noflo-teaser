@@ -11,7 +11,7 @@ Wrapper() OUT -> IN Console(core/Output)
 # '["title", "BUILT", "GOOGLE", "test"]' -> IN ParseTitle(strings/ParseJson)
 
 #### ScoreByLength
-#Wrapper() SENTENCE -> IN RelevanceByLength(teaser/RelevanceByLength)
+#Wrapper() SENTENCE -> IN RelevanceByLength(teaser/ScoreByLength)
 #RelevanceByLength() OUT -> SCORE Wrapper()
 
 #### ScoreByPosition

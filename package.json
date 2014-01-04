@@ -28,7 +28,7 @@
             "Top": "./components/Top.coffee",
             "ScoreStepWrapper": "./components/ScoreStepWrapper.coffee",
             "RelevanceByPosition": "./components/RelevanceByPosition.coffee",
-            "RelevanceByLength": "./components/RelevanceByLength.coffee"
+            "ScoreByLength": "./components/ScoreByLength.coffee"
         },
         "graphs": {
             "KickOnDisconnect": "./graphs/KickOnDisconnect.fbp",
@@ -36,7 +36,6 @@
             "JsonFileToPackets": "./graphs/JsonFileToPackets.fbp",
             "ScoreByTitle": "./graphs/ScoreByTitle.fbp",
             "ScoreByPosition": "./graphs/ScoreByPosition.fbp",
-            "ScoreByLength": "./graphs/ScoreByLength.fbp",
             "Teaser": "./graphs/Teaser.fbp"
         }
     },
