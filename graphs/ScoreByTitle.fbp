@@ -1,7 +1,3 @@
-#EXPORT=COUNTTITLELENGTH.IN:TITLE
-#EXPORT=SPLIT.IN:SENTENCE
-#EXPORT=SETSCORE.OUT:OUT
-
 EXPORT=TITLE.IN:TITLE
 EXPORT=SENTENCE.IN:SENTENCE
 EXPORT=RESULT.OUT:OUT
@@ -31,7 +27,6 @@ CountTitleLength() COUNT -> DIVISOR Divide(math/Divide)
 Counter() COUNT -> DIVIDEND Divide(math/Divide)
 Divide() QUOTIENT -> MULTIPLICAND Multiply()
 
-
 # Update Score
 Multiply() PRODUCT -> ADDEND Add(math/Add)
 ExtractScore() OUT -> AUGEND Add()
@@ -39,3 +34,4 @@ ExtractScore() OUT -> AUGEND Add()
 # Update IP
 Split() OUT -> IN SetScore()
 Add() SUM -> VALUE SetScore()
+
