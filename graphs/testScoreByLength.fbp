@@ -1,0 +1,11 @@
+# Send structured IP to Wrapper
+Repeat(core/Repeat) OUT -> IN Wrapper(teaser/ScoreStepWrapper)
+# Send words to Scoring
+Wrapper() SENTENCE -> IN ScoreByLength()
+# Send score to Wrapper
+RelevanceByLength() OUT -> SCORE Wrapper()
+# Send updated structured IP to Output
+Wrapper() OUT -> IN Console(core/Output)
+
+# KickOff
+'[{"sentence": ["some", "words"], "score": 0, "position": 1 }]' -> IN Repeat()
