@@ -4,7 +4,7 @@ class ScoreStepWrapper extends noflo.Component
 
   description: 'Wrapper around ScoreBy... Graphs'
 
-  sentence: [];
+  buffer: [];
 
   constructor: ->
     @inPorts =
@@ -17,13 +17,14 @@ class ScoreStepWrapper extends noflo.Component
       out: new noflo.Port
 
     @inPorts.in.on 'data', (data) =>
-      @sentence = data;
+      @buffer.push(data);
       @outPorts.position.send data.position if @outPorts.position.isAttached()
       @outPorts.sentence.send data.sentence if @outPorts.sentence.isAttached()
 
     @inPorts.score.on 'data', (data) =>
-      @sentence.score = data
-      @outPorts.out.send @sentence;
+      sentence = @buffer.shift()
+      sentence.score = data
+      @outPorts.out.send sentence;
 
     @inPorts.in.on 'disconnect', =>
       @outPorts.position.disconnect() if @outPorts.position.isAttached()

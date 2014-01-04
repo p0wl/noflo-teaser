@@ -1,11 +1,12 @@
 # Test file
 
-Parse(strings/ParseJson) OUT -> IN Wrapper(teaser/ScoreStepWrapper)
+Parse(strings/ParseJson) OUT -> IN SplitArray(objects/SplitArray)
+SplitArray() OUT -> IN DisconnectAfterPacket(core/DisconnectAfterPacket) OUT -> IN Wrapper(teaser/ScoreStepWrapper)
 Wrapper() OUT -> IN Console(core/Output)
 
 #### Score By Title
-# ParseTitle(strings/ParseJson) OUT -> IN SplitArray(objects/SplitArray)
-# SplitArray() OUT -> TITLE ScoreByTitle(teaser/ScoreByTitle)
+# ParseTitle(strings/ParseJson) OUT -> IN SplitArrayTitle(objects/SplitArray)
+# SplitArrayTitle() OUT -> TITLE ScoreByTitle(teaser/ScoreByTitle)
 # Wrapper() SENTENCE -> IN ScoreByTitle()
 # ScoreByTitle() OUT -> SCORE Wrapper()
 # '["title", "BUILT", "GOOGLE", "test"]' -> IN ParseTitle(strings/ParseJson)
@@ -15,8 +16,11 @@ Wrapper() OUT -> IN Console(core/Output)
 #RelevanceByLength() OUT -> SCORE Wrapper()
 
 #### ScoreByPosition
-# '10' -> LENGTH ScoreByPosition(teaser/ScoreByPosition)
-# Wrapper() POSITION -> POSITION ScoreByPosition()
-# ScoreByPosition() OUT -> SCORE Wrapper()
+ '10' -> LENGTH ScoreByPosition(teaser/ScoreByPosition)
+ Wrapper() POSITION -> POSITION ScoreByPosition()
+ ScoreByPosition() OUT -> SCORE Wrapper()
 
-'{"sentence": ["a", "GOOGLE", "BUILT", "by", "whitespace"], "score": 0, "position": 10 }' -> IN Parse()
+#'[{"sentence": ["a", "GOOGLE", "BUILT", "by", "whitespace"], "score": 0, "position": 10 }]' -> IN Parse()
+#'[{"sentence": ["seconde", "GOOGLE", "no", "match"], "score": 0, "position": 10 }]' -> IN Parse()
+
+'[{"sentence": ["a", "GOOGLE", "BUILT", "by", "whitespace"], "score": 0, "position": 1 }, {"sentence": ["seconde", "GOOGLE", "no", "match"], "score": 0, "position": 2 }]' -> IN Parse()
