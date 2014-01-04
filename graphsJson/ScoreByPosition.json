@@ -1,0 +1,145 @@
+{
+    "properties": {
+        "name": ""
+    },
+    "exports": [
+        {
+            "private": "split.in",
+            "public": "sentence"
+        },
+        {
+            "private": "divide.divisor",
+            "public": "length"
+        },
+        {
+            "private": "setscore.out",
+            "public": "out"
+        }
+    ],
+    "processes": {
+        "ExtractScore": {
+            "component": "objects/ExtractProperty"
+        },
+        "SetScore": {
+            "component": "objects/SetPropertyValue"
+        },
+        "ExtractPosition": {
+            "component": "objects/ExtractProperty"
+        },
+        "Split": {
+            "component": "core/Split"
+        },
+        "Divide": {
+            "component": "math/Divide"
+        },
+        "Relevance": {
+            "component": "teaser/RelevanceByPosition"
+        },
+        "Add": {
+            "component": "math/Add"
+        }
+    },
+    "connections": [
+        {
+            "src": {
+                "process": "Split",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "ExtractPosition",
+                "port": "in"
+            }
+        },
+        {
+            "src": {
+                "process": "ExtractPosition",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Divide",
+                "port": "dividend"
+            }
+        },
+        {
+            "src": {
+                "process": "Divide",
+                "port": "quotient"
+            },
+            "tgt": {
+                "process": "Relevance",
+                "port": "in"
+            }
+        },
+        {
+            "src": {
+                "process": "Split",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "ExtractScore",
+                "port": "in"
+            }
+        },
+        {
+            "src": {
+                "process": "Relevance",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Add",
+                "port": "addend"
+            }
+        },
+        {
+            "src": {
+                "process": "ExtractScore",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Add",
+                "port": "augend"
+            }
+        },
+        {
+            "src": {
+                "process": "Split",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "SetScore",
+                "port": "in"
+            }
+        },
+        {
+            "src": {
+                "process": "Add",
+                "port": "sum"
+            },
+            "tgt": {
+                "process": "SetScore",
+                "port": "value"
+            }
+        },
+        {
+            "data": "score",
+            "tgt": {
+                "process": "ExtractScore",
+                "port": "key"
+            }
+        },
+        {
+            "data": "score",
+            "tgt": {
+                "process": "SetScore",
+                "port": "property"
+            }
+        },
+        {
+            "data": "position",
+            "tgt": {
+                "process": "ExtractPosition",
+                "port": "key"
+            }
+        }
+    ]
+}
