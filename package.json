@@ -26,7 +26,7 @@
             "Score": "./components/Score.coffee",
             "Forward": "./components/Forward.coffee",
             "Top": "./components/Top.coffee",
-            "Step": "./components/Step.coffee",
+            "ScoreStepWrapper": "./components/ScoreStepWrapper.coffee",
             "RelevanceByPosition": "./components/RelevanceByPosition.coffee",
             "RelevanceByLength": "./components/RelevanceByLength.coffee"
         },

@@ -1,6 +1,6 @@
 noflo = require 'noflo'
 
-class Step extends noflo.Component
+class ScoreStepWrapper extends noflo.Component
 
   description: 'Wrapper around ScoreBy... Graphs'
 
@@ -32,4 +32,4 @@ class Step extends noflo.Component
     @inPorts.score.on 'disconnect', =>
       @outPorts.out.disconnect() if @outPorts.out.isAttached()
 
-exports.getComponent = -> new Step
+exports.getComponent = -> new ScoreStepWrapper
