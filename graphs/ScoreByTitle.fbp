@@ -1,10 +1,6 @@
-EXPORT=TITLE.IN:TITLE
-EXPORT=SENTENCE.IN:SENTENCE
-EXPORT=RESULT.OUT:OUT
-
-Title(core/Repeat) OUT -> IN CountTitleLength(packets/Counter)
-Sentence(core/Repeat) OUT -> IN Split(core/Split)
-SetScore(objects/SetPropertyValue) OUT -> IN Result(core/Repeat)
+EXPORT=COUNTTITLELENGTH.IN:TITLE
+EXPORT=SPLIT.IN:SENTENCE
+EXPORT=SETSCORE.OUT:OUT
 
 # Configuration
 'sentence' -> KEY ExtractSentence(objects/ExtractProperty)
@@ -15,16 +11,16 @@ SetScore(objects/SetPropertyValue) OUT -> IN Result(core/Repeat)
 Split(core/Split) OUT -> IN ExtractSentence()
 
 # Count Words of Title
-CountTitleLength() OUT -> ACCEPT Guard(flow/Accept)
+CountTitleLength(core/Counter) OUT -> ACCEPT Guard(flow/Accept)
 Split() OUT -> IN ExtractScore()
 ExtractSentence() OUT -> IN SplitArray(objects/SplitArray)
-SplitArray() OUT -> IN Guard(flow/Accept)
+SplitArray() OUT -> IN Guard()
 Guard() OUT -> IN Counter(packets/Counter)
 Counter() OUT -> IN Drop(core/Drop)
 
 # Calculate Score
 CountTitleLength() COUNT -> DIVISOR Divide(math/Divide)
-Counter() COUNT -> DIVIDEND Divide(math/Divide)
+Counter() COUNT -> DIVIDEND Divide()
 Divide() QUOTIENT -> MULTIPLICAND Multiply()
 
 # Update Score
