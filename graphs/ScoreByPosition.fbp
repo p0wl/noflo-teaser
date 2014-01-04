@@ -1,6 +1,8 @@
 EXPORT=DIVIDE.DIVIDEND:POSITION
 EXPORT=DIVIDE.DIVISOR:LENGTH
-EXPORT=RELEVANCE.OUT:OUT
+EXPORT=SCORE.OUT:OUT
+
 
 # Evaluate Score By Position in Full Text
 Divide(math/Divide) QUOTIENT -> IN Relevance(teaser/RelevanceByPosition)
+Relevance() OUT -> IN Score(core/Repeat)

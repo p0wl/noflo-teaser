@@ -10,178 +10,94 @@
   "exports": [
     {
       "public": "title",
-      "private": "title.in"
+      "private": "counttitlelength.in"
     },
     {
-      "public": "sentence",
-      "private": "sentence.in"
+      "public": "in",
+      "private": "splitarray.in"
     },
     {
       "public": "out",
-      "private": "result.out"
+      "private": "multiply.product"
     }
   ],
   "groups": [],
   "processes": {
-    "Title": {
-      "component": "core/Repeat",
+    "Multiply": {
+      "component": "math/Multiply",
       "metadata": {
-        "x": 271,
-        "y": 2
+        "x": 1177,
+        "y": 26
       }
     },
     "CountTitleLength": {
       "component": "packets/Counter",
       "metadata": {
-        "x": 488,
-        "y": 2
-      }
-    },
-    "Sentence": {
-      "component": "core/Repeat",
-      "metadata": {
-        "x": 270,
-        "y": 118
-      }
-    },
-    "Split": {
-      "component": "core/Split",
-      "metadata": {
-        "x": 480,
-        "y": 283
-      }
-    },
-    "SetScore": {
-      "component": "objects/SetPropertyValue",
-      "metadata": {
-        "x": 1200,
-        "y": 386
-      }
-    },
-    "Result": {
-      "component": "core/Repeat",
-      "metadata": {
-        "x": 1467,
-        "y": 396
-      }
-    },
-    "ExtractSentence": {
-      "component": "objects/ExtractProperty",
-      "metadata": {
-        "x": 569,
-        "y": 134
-      }
-    },
-    "ExtractScore": {
-      "component": "objects/ExtractProperty",
-      "metadata": {
-        "x": 779,
-        "y": 250
-      }
-    },
-    "Multiply": {
-      "component": "math/Multiply",
-      "metadata": {
-        "x": 1270,
-        "y": 88
+        "x": 335,
+        "y": -60
       }
     },
     "Guard": {
       "component": "flow/Accept",
       "metadata": {
-        "x": 783,
-        "y": -66
+        "x": 546,
+        "y": 72
       }
     },
     "SplitArray": {
       "component": "objects/SplitArray",
       "metadata": {
-        "x": 782,
-        "y": 133
+        "x": 327,
+        "y": 139
       }
     },
     "Counter": {
       "component": "packets/Counter",
       "metadata": {
-        "x": 1025,
-        "y": -70
+        "x": 754,
+        "y": 206
       }
     },
     "Drop": {
       "component": "core/Drop",
       "metadata": {
-        "x": 1256,
-        "y": -70
+        "x": 973,
+        "y": 300
       }
     },
     "Divide": {
       "component": "math/Divide",
       "metadata": {
-        "x": 1026,
-        "y": 83
+        "x": 974,
+        "y": 28
       }
     },
-    "Add": {
-      "component": "math/Add",
+    "Title_xagmy": {
+      "component": "core/Repeat",
       "metadata": {
-        "x": 1205,
-        "y": 231
+        "x": 122,
+        "y": -59,
+        "label": "Title"
+      }
+    },
+    "Sentence_8q336": {
+      "component": "core/Repeat",
+      "metadata": {
+        "x": 120,
+        "y": 140,
+        "label": "Sentence"
+      }
+    },
+    "OUT_9k6mi": {
+      "component": "core/Repeat",
+      "metadata": {
+        "x": 1366,
+        "y": 191,
+        "label": "OUT"
       }
     }
   },
   "connections": [
-    {
-      "src": {
-        "process": "Title",
-        "port": "out"
-      },
-      "tgt": {
-        "process": "CountTitleLength",
-        "port": "in"
-      },
-      "metadata": {
-        "route": 7
-      }
-    },
-    {
-      "src": {
-        "process": "Sentence",
-        "port": "out"
-      },
-      "tgt": {
-        "process": "Split",
-        "port": "in"
-      },
-      "metadata": {
-        "route": 7
-      }
-    },
-    {
-      "src": {
-        "process": "SetScore",
-        "port": "out"
-      },
-      "tgt": {
-        "process": "Result",
-        "port": "in"
-      },
-      "metadata": {
-        "route": 3
-      }
-    },
-    {
-      "src": {
-        "process": "Split",
-        "port": "out"
-      },
-      "tgt": {
-        "process": "ExtractSentence",
-        "port": "in"
-      },
-      "metadata": {
-        "route": 7
-      }
-    },
     {
       "src": {
         "process": "CountTitleLength",
@@ -197,32 +113,6 @@
     },
     {
       "src": {
-        "process": "Split",
-        "port": "out"
-      },
-      "tgt": {
-        "process": "ExtractScore",
-        "port": "in"
-      },
-      "metadata": {
-        "route": 7
-      }
-    },
-    {
-      "src": {
-        "process": "ExtractSentence",
-        "port": "out"
-      },
-      "tgt": {
-        "process": "SplitArray",
-        "port": "in"
-      },
-      "metadata": {
-        "route": 7
-      }
-    },
-    {
-      "src": {
         "process": "SplitArray",
         "port": "out"
       },
@@ -231,7 +121,7 @@
         "port": "in"
       },
       "metadata": {
-        "route": 9
+        "route": 7
       }
     },
     {
@@ -298,75 +188,41 @@
     },
     {
       "src": {
+        "process": "Title_xagmy",
+        "port": "out"
+      },
+      "tgt": {
+        "process": "CountTitleLength",
+        "port": "in"
+      },
+      "metadata": {
+        "route": 0
+      }
+    },
+    {
+      "src": {
+        "process": "Sentence_8q336",
+        "port": "out"
+      },
+      "tgt": {
+        "process": "SplitArray",
+        "port": "in"
+      },
+      "metadata": {
+        "route": 0
+      }
+    },
+    {
+      "src": {
         "process": "Multiply",
         "port": "product"
       },
       "tgt": {
-        "process": "Add",
-        "port": "addend"
-      },
-      "metadata": {
-        "route": 3
-      }
-    },
-    {
-      "src": {
-        "process": "ExtractScore",
-        "port": "out"
-      },
-      "tgt": {
-        "process": "Add",
-        "port": "augend"
-      },
-      "metadata": {
-        "route": 2
-      }
-    },
-    {
-      "src": {
-        "process": "Split",
-        "port": "out"
-      },
-      "tgt": {
-        "process": "SetScore",
+        "process": "OUT_9k6mi",
         "port": "in"
       },
       "metadata": {
-        "route": 7
-      }
-    },
-    {
-      "src": {
-        "process": "Add",
-        "port": "sum"
-      },
-      "tgt": {
-        "process": "SetScore",
-        "port": "value"
-      },
-      "metadata": {
-        "route": 3
-      }
-    },
-    {
-      "data": "sentence",
-      "tgt": {
-        "process": "ExtractSentence",
-        "port": "key"
-      }
-    },
-    {
-      "data": "score",
-      "tgt": {
-        "process": "ExtractScore",
-        "port": "key"
-      }
-    },
-    {
-      "data": "score",
-      "tgt": {
-        "process": "SetScore",
-        "port": "property"
+        "route": 0
       }
     },
     {
