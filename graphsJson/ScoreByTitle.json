@@ -1,0 +1,300 @@
+{
+  "properties": {
+    "environment": {
+      "runtime": "html",
+      "src": "./preview/iframe.html",
+      "width": 300,
+      "height": 300
+    }
+  },
+  "exports": [
+    {
+      "public": "title",
+      "private": "title.in"
+    },
+    {
+      "public": "sentence",
+      "private": "sentence.in"
+    },
+    {
+      "public": "out",
+      "private": "result.out"
+    }
+  ],
+  "groups": [],
+  "processes": {
+    "Title": {
+      "component": "core/Repeat",
+      "metadata": {
+        "x": -41,
+        "y": 13
+      }
+    },
+    "Guard": {
+      "component": "flow/Accept",
+      "metadata": {
+        "x": 708,
+        "y": 42
+      }
+    },
+    "Sentence": {
+      "component": "core/Repeat",
+      "metadata": {
+        "x": -44,
+        "y": 153
+      }
+    },
+    "Split": {
+      "component": "core/Split",
+      "metadata": {
+        "x": 173,
+        "y": 258
+      }
+    },
+    "SetScore": {
+      "component": "objects/SetPropertyValue",
+      "metadata": {
+        "x": 917,
+        "y": 362
+      }
+    },
+    "Result": {
+      "component": "core/Repeat",
+      "metadata": {
+        "x": 1132,
+        "y": 362
+      }
+    },
+    "ExtractSentence": {
+      "component": "objects/ExtractProperty",
+      "metadata": {
+        "x": 385,
+        "y": 118
+      }
+    },
+    "ExtractScore": {
+      "component": "objects/ExtractProperty",
+      "metadata": {
+        "x": 399,
+        "y": 257
+      }
+    },
+    "SplitArray": {
+      "component": "objects/SplitArray",
+      "metadata": {
+        "x": 599,
+        "y": 140
+      }
+    },
+    "Counter": {
+      "component": "packets/Counter",
+      "metadata": {
+        "x": 913,
+        "y": 68
+      }
+    },
+    "Drop": {
+      "component": "core/Drop",
+      "metadata": {
+        "x": 1135,
+        "y": 68
+      }
+    },
+    "Add": {
+      "component": "math/Add",
+      "metadata": {
+        "x": 703,
+        "y": 240
+      }
+    }
+  },
+  "connections": [
+    {
+      "src": {
+        "process": "Title",
+        "port": "out"
+      },
+      "tgt": {
+        "process": "Guard",
+        "port": "accept"
+      },
+      "metadata": {
+        "route": 6
+      }
+    },
+    {
+      "src": {
+        "process": "Sentence",
+        "port": "out"
+      },
+      "tgt": {
+        "process": "Split",
+        "port": "in"
+      },
+      "metadata": {
+        "route": 6
+      }
+    },
+    {
+      "src": {
+        "process": "SetScore",
+        "port": "out"
+      },
+      "tgt": {
+        "process": "Result",
+        "port": "in"
+      },
+      "metadata": {
+        "route": 11
+      }
+    },
+    {
+      "src": {
+        "process": "Split",
+        "port": "out"
+      },
+      "tgt": {
+        "process": "ExtractSentence",
+        "port": "in"
+      },
+      "metadata": {
+        "route": 9
+      }
+    },
+    {
+      "src": {
+        "process": "Split",
+        "port": "out"
+      },
+      "tgt": {
+        "process": "ExtractScore",
+        "port": "in"
+      },
+      "metadata": {
+        "route": 3
+      }
+    },
+    {
+      "src": {
+        "process": "ExtractSentence",
+        "port": "out"
+      },
+      "tgt": {
+        "process": "SplitArray",
+        "port": "in"
+      },
+      "metadata": {
+        "route": 9
+      }
+    },
+    {
+      "src": {
+        "process": "SplitArray",
+        "port": "out"
+      },
+      "tgt": {
+        "process": "Guard",
+        "port": "in"
+      },
+      "metadata": {
+        "route": 9
+      }
+    },
+    {
+      "src": {
+        "process": "Guard",
+        "port": "out"
+      },
+      "tgt": {
+        "process": "Counter",
+        "port": "in"
+      },
+      "metadata": {
+        "route": 9
+      }
+    },
+    {
+      "src": {
+        "process": "Counter",
+        "port": "out"
+      },
+      "tgt": {
+        "process": "Drop",
+        "port": "in"
+      }
+    },
+    {
+      "src": {
+        "process": "Counter",
+        "port": "count"
+      },
+      "tgt": {
+        "process": "Add",
+        "port": "addend"
+      },
+      "metadata": {
+        "route": 9
+      }
+    },
+    {
+      "src": {
+        "process": "ExtractScore",
+        "port": "out"
+      },
+      "tgt": {
+        "process": "Add",
+        "port": "augend"
+      },
+      "metadata": {
+        "route": 3
+      }
+    },
+    {
+      "src": {
+        "process": "Split",
+        "port": "out"
+      },
+      "tgt": {
+        "process": "SetScore",
+        "port": "in"
+      },
+      "metadata": {
+        "route": 3
+      }
+    },
+    {
+      "src": {
+        "process": "Add",
+        "port": "sum"
+      },
+      "tgt": {
+        "process": "SetScore",
+        "port": "value"
+      },
+      "metadata": {
+        "route": 11
+      }
+    },
+    {
+      "data": "sentence",
+      "tgt": {
+        "process": "ExtractSentence",
+        "port": "key"
+      }
+    },
+    {
+      "data": "score",
+      "tgt": {
+        "process": "ExtractScore",
+        "port": "key"
+      }
+    },
+    {
+      "data": "score",
+      "tgt": {
+        "process": "SetScore",
+        "port": "property"
+      }
+    }
+  ]
+}

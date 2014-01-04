@@ -1,6 +1,14 @@
-EXPORT=GUARD.ACCEPT:TITLE
-EXPORT=SPLIT.IN:SENTENCE
-EXPORT=SETSCORE.OUT:OUT
+#EXPORT=GUARD.ACCEPT:TITLE
+#EXPORT=SPLIT.IN:SENTENCE
+#EXPORT=SETSCORE.OUT:OUT
+
+EXPORT=TITLE.IN:TITLE
+EXPORT=SENTENCE.IN:SENTENCE
+EXPORT=RESULT.OUT:OUT
+
+Title(core/Repeat) OUT -> ACCEPT Guard(flow/Accept)
+Sentence(core/Repeat) OUT -> IN Split(core/Split)
+SetScore(objects/SetPropertyValue) OUT -> IN Result(core/Repeat)
 
 # Configuration
 'sentence' -> KEY ExtractSentence(objects/ExtractProperty)
@@ -13,11 +21,11 @@ Split(core/Split) OUT -> IN ExtractSentence()
 Split() OUT -> IN ExtractScore()
 ExtractSentence() OUT -> IN SplitArray(objects/SplitArray)
 SplitArray() OUT -> IN Guard(flow/Accept)
-Guard() OUT -> IN Score(packets/Counter)
-Score() OUT -> IN Drop(core/Drop)
+Guard() OUT -> IN Counter(packets/Counter)
+Counter() OUT -> IN Drop(core/Drop)
 
 # Update Score
-Score() COUNT -> ADDEND Add(math/Add)
+Counter() COUNT -> ADDEND Add(math/Add)
 ExtractScore() OUT -> AUGEND Add()
 
 # Update IP
