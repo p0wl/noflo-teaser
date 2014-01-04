@@ -6,30 +6,18 @@ Step() OUT -> IN Console(core/Output)
 #### Score By Title
 # ParseTitle(strings/ParseJson) OUT -> IN SplitArray(objects/SplitArray)
 # SplitArray() OUT -> TITLE ScoreByTitle(teaser/ScoreByTitle)
-# Parse(strings/ParseJson) OUT -> SENTENCE ScoreByTitle()
-# ScoreByTitle() OUT -> IN Console(core/Output)
-#'["title", "BUILT", "GOOGLE"]' -> IN ParseTitle(strings/ParseJson)
+# Step() SENTENCE -> IN ScoreByTitle()
+# ScoreByTitle() OUT -> IN C(core/Output) OUT -> SCORE Step()
+#'["title", "BUILT", "GOOGLE", "test"]' -> IN ParseTitle(strings/ParseJson)
 
-
-#### Score By Position
-# '10' -> LENGTH ScoreByPosition(teaser/ScoreByPosition)
-# Parse(strings/ParseJson) OUT -> SENTENCE ScoreByPosition()
-# ScoreByPosition() OUT -> IN Console(core/Output)
-
-#### Score By Length
-# Parse(strings/ParseJson) OUT -> SENTENCE ScoreByLength(teaser/ScoreByLength)
-# ScoreByLength() OUT -> IN Console(core/Output)
-
-
-#### ScoreByLength with Step
-
+#### ScoreByLength
 #Step() SENTENCE -> IN RelevanceByLength(teaser/RelevanceByLength)
 #RelevanceByLength() OUT -> SCORE Step()
 
-#### ScoreByPosition with Step
- '10' -> LENGTH ScoreByPosition(teaser/ScoreByPosition)
- Step() POSITION -> POSITION ScoreByPosition()
- ScoreByPosition() OUT -> SCORE Step()
+#### ScoreByPosition
+# '10' -> LENGTH ScoreByPosition(teaser/ScoreByPosition)
+# Step() POSITION -> POSITION ScoreByPosition()
+# ScoreByPosition() OUT -> SCORE Step()
 
 
 

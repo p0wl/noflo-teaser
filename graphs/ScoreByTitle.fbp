@@ -1,20 +1,13 @@
 EXPORT=COUNTTITLELENGTH.IN:TITLE
-EXPORT=SPLIT.IN:SENTENCE
-EXPORT=SETSCORE.OUT:OUT
+EXPORT=SPLITARRAY.IN:IN
+EXPORT=MULTIPLY.PRODUCT:OUT
 
 # Configuration
-'sentence' -> KEY ExtractSentence(objects/ExtractProperty)
-'score' -> KEY ExtractScore(objects/ExtractProperty)
-'score' -> PROPERTY SetScore(objects/SetPropertyValue)
 '1.5' -> MULTIPLIER Multiply(math/Multiply)
 
-Split(core/Split) OUT -> IN ExtractSentence()
-
 # Count Words of Title
-CountTitleLength(core/Counter) OUT -> ACCEPT Guard(flow/Accept)
-Split() OUT -> IN ExtractScore()
-ExtractSentence() OUT -> IN SplitArray(objects/SplitArray)
-SplitArray() OUT -> IN Guard()
+CountTitleLength(packets/Counter) OUT -> ACCEPT Guard(flow/Accept)
+SplitArray(objects/SplitArray) OUT -> IN Guard()
 Guard() OUT -> IN Counter(packets/Counter)
 Counter() OUT -> IN Drop(core/Drop)
 
@@ -23,11 +16,4 @@ CountTitleLength() COUNT -> DIVISOR Divide(math/Divide)
 Counter() COUNT -> DIVIDEND Divide()
 Divide() QUOTIENT -> MULTIPLICAND Multiply()
 
-# Update Score
-Multiply() PRODUCT -> ADDEND Add(math/Add)
-ExtractScore() OUT -> AUGEND Add()
-
-# Update IP
-Split() OUT -> IN SetScore()
-Add() SUM -> VALUE SetScore()
 
