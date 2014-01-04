@@ -36,6 +36,7 @@
             "ScoreByTitle": "./graphs/ScoreByTitle.fbp",
             "ScoreByPosition": "./graphs/ScoreByPosition.fbp",
             "ScoreByLength": "./graphs/ScoreByLength.fbp",
+            "ScoreStep": "./graphs/ScoreStep.fbp",
             "Teaser": "./graphs/Teaser.fbp"
         }
     },

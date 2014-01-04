@@ -1,0 +1,19 @@
+EXPORT=SPLIT.IN:IN
+EXPORT=SETSCORE.OUT:OUT
+EXPORT=EXTRACTSENTENCE.OUT:SENTENCE
+EXPORT=ADD:ADDEND:SCORE
+
+# Configuration
+'sentence' -> KEY ExtractSentence(objects/ExtractProperty)
+'score' -> KEY ExtractScore(objects/ExtractProperty)
+'score' -> PROPERTY SetScore(objects/SetPropertyValue)
+
+Split(core/Split) OUT -> IN ExtractSentence()
+
+# Update Score
+Split() OUT -> IN ExtractScore()
+ExtractScore() OUT -> AUGEND Add()
+
+# Update IP
+Split() OUT -> IN SetScore()
+Add() SUM -> VALUE SetScore()
