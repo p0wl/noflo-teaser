@@ -1,4 +1,4 @@
-#EXPORT=GUARD.ACCEPT:TITLE
+#EXPORT=COUNTTITLELENGTH.IN:TITLE
 #EXPORT=SPLIT.IN:SENTENCE
 #EXPORT=SETSCORE.OUT:OUT
 
@@ -6,7 +6,7 @@ EXPORT=TITLE.IN:TITLE
 EXPORT=SENTENCE.IN:SENTENCE
 EXPORT=RESULT.OUT:OUT
 
-Title(core/Repeat) OUT -> ACCEPT Guard(flow/Accept)
+Title(core/Repeat) OUT -> IN CountTitleLength(packets/Counter)
 Sentence(core/Repeat) OUT -> IN Split(core/Split)
 SetScore(objects/SetPropertyValue) OUT -> IN Result(core/Repeat)
 
@@ -14,18 +14,26 @@ SetScore(objects/SetPropertyValue) OUT -> IN Result(core/Repeat)
 'sentence' -> KEY ExtractSentence(objects/ExtractProperty)
 'score' -> KEY ExtractScore(objects/ExtractProperty)
 'score' -> PROPERTY SetScore(objects/SetPropertyValue)
+'1.5' -> MULTIPLIER Multiply(math/Multiply)
 
 Split(core/Split) OUT -> IN ExtractSentence()
 
 # Count Words of Title
+CountTitleLength() OUT -> ACCEPT Guard(flow/Accept)
 Split() OUT -> IN ExtractScore()
 ExtractSentence() OUT -> IN SplitArray(objects/SplitArray)
 SplitArray() OUT -> IN Guard(flow/Accept)
 Guard() OUT -> IN Counter(packets/Counter)
 Counter() OUT -> IN Drop(core/Drop)
 
+# Calculate Score
+CountTitleLength() COUNT -> DIVISOR Divide(math/Divide)
+Counter() COUNT -> DIVIDEND Divide(math/Divide)
+Divide() QUOTIENT -> MULTIPLICAND Multiply()
+
+
 # Update Score
-Counter() COUNT -> ADDEND Add(math/Add)
+Multiply() PRODUCT -> ADDEND Add(math/Add)
 ExtractScore() OUT -> AUGEND Add()
 
 # Update IP
