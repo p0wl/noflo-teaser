@@ -16,8 +16,8 @@ EXPORT=EXTRACTOR.OUT:OUT
 
 
 ########## Start #########
-TextForward(teaser/Forward) OUT -> IN Text(core/Split)
-TitleForward(teaser/Forward) OUT -> IN LowerCaseTitle(strings/LowerCaseString)
+TextForward(core/Repeat) OUT -> IN Text(core/Split)
+TitleForward(core/Repeat) OUT -> IN LowerCaseTitle(strings/LowerCaseString)
 
 # Split Text to Sentences
 Text() OUT -> IN SplitSentences()

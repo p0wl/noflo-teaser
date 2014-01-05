@@ -17,35 +17,26 @@
         "noflo-flow": "~0.3.3",
         "noflo-cache": "0.0.3",
         "noflo-filesystem": "~1.0.4",
+        "noflo-core": "~0.1.3",
         "noflo-math": "0.0.4"
     },
     "noflo": {
         "components": {
             "AssertEqual": "./components/AssertEqual.coffee",
-            "Summarize": "./components/Summarize.coffee",
-            "Keywords": "./components/Keywords.coffee",
-            "Score": "./components/Score.coffee",
-            "Forward": "./components/Forward.coffee",
             "Frequency": "./components/Frequency.coffee",
-            "StructureSentenceIp": "./components/StructureSentenceIp.coffee",
-            "ScoreStepWrapper": "./components/ScoreStepWrapper.coffee",
             "RelevanceByPosition": "./components/RelevanceByPosition.coffee",
             "ScoreByKeywords": "./components/ScoreByKeywords.coffee",
-            "ScoreByLength": "./components/ScoreByLength.coffee"
+            "ScoreByLength": "./components/ScoreByLength.coffee",
+            "ScoreStepWrapper": "./components/ScoreStepWrapper.coffee",
+            "StructureSentenceIp": "./components/StructureSentenceIp.coffee"
         },
         "graphs": {
-            "LoadBadwords": "./graphs/LoadBadwords.fbp",
-            "KickOnDisconnect": "./graphs/KickOnDisconnect.fbp",
-            "FilterBadwords": "./graphs/FilterBadwords.fbp",
-            "JsonFileToPackets": "./graphs/JsonFileToPackets.fbp",
             "ExtractKeywords": "./graphs/ExtractKeywords.fbp",
+            "FilterBadwords": "./graphs/FilterBadwords.fbp",
+            "LoadBadwords": "./graphs/LoadBadwords.fbp",
             "ScoreByTitle": "./graphs/ScoreByTitle.fbp",
             "ScoreByPosition": "./graphs/ScoreByPosition.fbp",
             "Teaser": "./graphs/Teaser.fbp"
         }
-    },
-    "devDependencies": {
-        "noflo-core": "~0.1.3",
-        "jsTeaser": "git+ssh://git@github.com:p0wl/jsTeaser.git"
     }
 }
