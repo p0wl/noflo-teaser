@@ -21,6 +21,7 @@
     },
     "noflo": {
         "components": {
+            "AssertEqual": "./components/AssertEqual.coffee",
             "Summarize": "./components/Summarize.coffee",
             "Keywords": "./components/Keywords.coffee",
             "Score": "./components/Score.coffee",
