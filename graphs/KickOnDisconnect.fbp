@@ -1,6 +1,0 @@
-EXPORT=DISCONNECT.IN:IN
-EXPORT=KICK.DATA:DATA
-EXPORT=KICK.OUT:OUT
-
-
-Disconnect(packets/OnlyDisconnect) OUT -> IN Kick(core/Kick)
