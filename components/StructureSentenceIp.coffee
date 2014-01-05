@@ -15,7 +15,12 @@ class StructureSentenceIp extends noflo.Component
 
     @inPorts.in.on 'data', (data) =>
       @count++
-      @outPorts.out.send {sentence: data.split(" "), position: @count, score: 0}
+      @outPorts.out.send {
+        sentence: data.toLowerCase().split(" "),
+        readable: data,
+        position: @count,
+        score: 0
+      }
 
     @inPorts.in.on 'disconnect', =>
       @count = 0

@@ -1,35 +1,36 @@
 # SUBGRAPH DEFINITION
-EXPORT=TOP.LENGTH:TOP
+EXPORT=RANGE.LENGTH:TOP
 EXPORT=TITLEFORWARD.IN:TITLE
 EXPORT=TEXTFORWARD.IN:CONTENT
-EXPORT=WRAPPERKEYWORDS.OUT:OUT
+EXPORT=EXTRACTOR.OUT:OUT
 
 # Configuration
 'score' -> PROPERTY SortBy(underscore/SortBy)
 'desc' -> ORDER SortBy()
-'sentence' -> KEY Extractor(objects/ExtractProperty)
+'readable' -> KEY Extractor(objects/ExtractProperty)
 '. ' -> DELIMITER SplitSentences(strings/SplitStr)
 ' ' -> DELIMITER SplitTitleWords(strings/SplitStr)
 ' ' -> DELIMITER SplitTextWords(strings/SplitStr)
+' ' -> DELIMITER Join(objects/Join)
 
 # Tolowercase TODO
-TextForward(teaser/Forward) OUT -> INTEXT Summarize(teaser/Summarize)
-TitleForward(teaser/Forward) OUT -> INTITLE Summarize()
+TextForward(teaser/Forward) OUT -> IN Text(core/Split)
+TitleForward(teaser/Forward) OUT -> INTITLE Summarize(teaser/Summarize)
 
 # SPLIT Text for multiple Components
-Summarize() TEXT -> IN Text(core/Split)
 
 # Split Text to Sentences
 Text() OUT -> IN SplitSentences()
+Text() OUT -> INTEXT Summarize()
 # First Wrapper
-SplitSentences() OUT -> IN Structure(teaser/StructureSentenceIp)
-Structure() OUT -> IN DisconnectAfterPacket(core/DisconnectAfterPacket) OUT -> IN Wrapper(teaser/ScoreStepWrapper)
+SplitSentences() OUT -> IN CountSentences(packets/Counter) OUT -> IN Structure(teaser/StructureSentenceIp)
+Structure() OUT -> IN DisconnectAfterPacket(core/DisconnectAfterPacket) OUT -> IN WrapperTitle(teaser/ScoreStepWrapper)
 
 # Get Words from Title
-Summarize() TITLE -> IN SplitTitleWords() OUT -> IN FilterBadwordsTitle(teaser/FilterBadwords)
+Summarize() TITLE ->  IN SplitTitleWords() OUT -> IN FilterBadwordsTitle(teaser/FilterBadwords)
 
 # Filter Badwords from Text
-Text() OUT -> IN SplitTextWords()
+Summarize() TEXT -> IN SplitTextWords()
 SplitTextWords() OUT -> IN CountTextWords(packets/Counter) OUT -> IN FilterBadwords(teaser/FilterBadwords)
 
 # Get Keywords
@@ -38,19 +39,41 @@ CountTextWords() COUNT -> LENGTH ExtractKeywords()
 
 # ScoreByTitle
 FilterBadwordsTitle() OUT -> TITLE ScoreByTitle(teaser/ScoreByTitle)
-Wrapper() SENTENCE -> IN ScoreByTitle()
-ScoreByTitle() OUT -> SCORE Wrapper()
+WrapperTitle() SENTENCE -> IN ScoreByTitle()
+ScoreByTitle() OUT -> SCORE WrapperTitle()
 
 # Results from ScoreByTitle -> Input ScoreByKeywords
-Wrapper() OUT -> IN Stop(flow/Stop)
+WrapperTitle() OUT -> IN Stop(flow/Stop)
 Stop() OUT -> IN WrapperKeywords(teaser/ScoreStepWrapper)
+# Kick Sentences to WrapperKeywords
+SplitForStop(core/Split) OUT -> READY Stop()
 
 # ScoreByKeywords
-ExtractKeywords() OUT -> IN SplitForStop(core/Split) OUT -> KEYWORDS ScoreByKeywords(teaser/ScoreByKeywords)
+ExtractKeywords() OUT -> IN SplitForStop() OUT -> KEYWORDS ScoreByKeywords(teaser/ScoreByKeywords)
 WrapperKeywords() SENTENCE -> IN ScoreByKeywords()
 ScoreByKeywords() OUT -> SCORE WrapperKeywords()
 
-SplitForStop() OUT -> READY Stop()
+# Results from ScoreByKeywords -> Input ScoreByPosition
+WrapperKeywords() OUT ->  IN WrapperPosition(teaser/ScoreStepWrapper)
+
+CountSentences() COUNT -> LENGTH ScoreByPosition(teaser/ScoreByPosition)
+WrapperPosition() POSITION -> POSITION ScoreByPosition()
+ScoreByPosition() OUT -> SCORE WrapperPosition()
+
+# Results from ScoreByPosition -> Input ScoreByLength
+WrapperPosition() OUT -> IN WrapperLength(teaser/ScoreStepWrapper)
+WrapperLength() SENTENCE -> IN RelevanceByLength(teaser/ScoreByLength)
+RelevanceByLength() OUT -> SCORE WrapperLength()
+
+
+# Get Top Sentences
+WrapperLength() OUT -> IN SortBy()
+SortBy() OUT -> IN Range(packets/Range)
+Range() OUT -> IN Extractor()
+#Extractor() OUT -> IN Join()
+
+
+
 
 
 
