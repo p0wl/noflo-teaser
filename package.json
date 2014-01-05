@@ -26,7 +26,6 @@
             "Keywords": "./components/Keywords.coffee",
             "Score": "./components/Score.coffee",
             "Forward": "./components/Forward.coffee",
-            "Top": "./components/Top.coffee",
             "Frequency": "./components/Frequency.coffee",
             "ScoreStepWrapper": "./components/ScoreStepWrapper.coffee",
             "RelevanceByPosition": "./components/RelevanceByPosition.coffee",
@@ -37,6 +36,7 @@
             "KickOnDisconnect": "./graphs/KickOnDisconnect.fbp",
             "FilterBadwords": "./graphs/FilterBadwords.fbp",
             "JsonFileToPackets": "./graphs/JsonFileToPackets.fbp",
+            "ExtractKeywords": "./graphs/ExtractKeywords.fbp",
             "ScoreByTitle": "./graphs/ScoreByTitle.fbp",
             "ScoreByPosition": "./graphs/ScoreByPosition.fbp",
             "Teaser": "./graphs/Teaser.fbp"

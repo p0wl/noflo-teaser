@@ -1,0 +1,5 @@
+Parse(strings/ParseJson) OUT -> IN ExtractKeywords(teaser/ExtractKeywords)
+'10' -> LENGTH ExtractKeywords()
+ExtractKeywords() OUT -> IN Con(core/Output)
+
+'["a", "GOOGLE", "BUILT", "by", "whitespace"]' -> IN Parse()
