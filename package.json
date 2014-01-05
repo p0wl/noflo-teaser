@@ -29,6 +29,7 @@
             "Top": "./components/Top.coffee",
             "ScoreStepWrapper": "./components/ScoreStepWrapper.coffee",
             "RelevanceByPosition": "./components/RelevanceByPosition.coffee",
+            "ScoreByKeywords": "./components/ScoreByKeywords.coffee",
             "ScoreByLength": "./components/ScoreByLength.coffee"
         },
         "graphs": {

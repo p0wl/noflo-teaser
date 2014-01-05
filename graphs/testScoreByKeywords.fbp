@@ -1,0 +1,8 @@
+ParseKey(strings/ParseJson) OUT -> KEYWORDS ScoreByKeywords(teaser/ScoreByKeywords)
+Parse(strings/ParseJson) OUT -> IN ScoreByKeywords(teaser/ScoreByKeywords)
+
+ScoreByKeywords() OUT -> IN Con(core/Output)
+
+
+'[{"word": "GOOGLE", "sum": 1.1}, {"word": "BUILT", "sum": 1.3}]' -> IN ParseKey()
+'["a", "GOOGLE", "BUILT", "by", "whitespace"]' -> IN Parse()
