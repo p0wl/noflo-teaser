@@ -23,7 +23,7 @@ class ScoreStepWrapper extends noflo.Component
 
     @inPorts.score.on 'data', (data) =>
       sentence = @buffer.shift()
-      sentence.score = data
+      sentence.score += data
       @outPorts.out.send sentence
 
     @inPorts.in.on 'disconnect', =>
