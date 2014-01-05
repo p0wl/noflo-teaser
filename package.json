@@ -33,6 +33,7 @@
             "ScoreByLength": "./components/ScoreByLength.coffee"
         },
         "graphs": {
+            "LoadBadwords": "./graphs/LoadBadwords.fbp",
             "KickOnDisconnect": "./graphs/KickOnDisconnect.fbp",
             "FilterBadwords": "./graphs/FilterBadwords.fbp",
             "JsonFileToPackets": "./graphs/JsonFileToPackets.fbp",
