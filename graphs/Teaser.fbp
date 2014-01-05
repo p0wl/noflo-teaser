@@ -5,77 +5,77 @@ EXPORT=TEXTFORWARD.IN:CONTENT
 EXPORT=EXTRACTOR.OUT:OUT
 
 # Configuration
-'score' -> PROPERTY SortBy(underscore/SortBy)
-'desc' -> ORDER SortBy()
-'readable' -> KEY Extractor(objects/ExtractProperty)
-'. ' -> DELIMITER SplitSentences(strings/SplitStr)
-' ' -> DELIMITER SplitTitleWords(strings/SplitStr)
-' ' -> DELIMITER SplitTextWords(strings/SplitStr)
-# Remove special characters from text
-'[^\w ]' -> PATTERN Cleanup(strings/Replace)
+'score' 	-> PROPERTY SortBy(underscore/SortBy)
+'desc' 		-> ORDER SortBy()
+'readable' 	-> KEY Extractor(objects/ExtractProperty)
+'. ' 		-> DELIMITER SplitSentences(strings/SplitStr)
+' ' 		-> DELIMITER SplitTitleWords(strings/SplitStr)
+' ' 		-> DELIMITER SplitTextWords(strings/SplitStr)
+# Removes special characters from text
+'[^\w ]' 	-> PATTERN Cleanup(strings/Replace)
 
 
-########## Start #########
-TextForward(core/Repeat) OUT -> IN Text(core/Split)
-TitleForward(core/Repeat) OUT -> IN LowerCaseTitle(strings/LowerCaseString)
+# Handle Input
+TextForward(core/Repeat) 	OUT -> IN Text(core/Split)
+TitleForward(core/Repeat) 	OUT -> IN LowerCaseTitle(strings/LowerCaseString)
+
 
 # Split Text to Sentences
-Text() OUT -> IN SplitSentences()
-SplitSentences() OUT -> IN CountSentences(packets/Counter) OUT -> IN Structure(teaser/StructureSentenceIp)
-Structure() OUT -> IN DisconnectAfterPacket(core/DisconnectAfterPacket) OUT -> IN WrapperTitle(teaser/ScoreStepWrapper)
+Text() 			 OUT -> IN SplitSentences()
+SplitSentences() OUT -> IN CountSentences(packets/Counter) 
+# Create Structured IPs
+CountSentences() OUT -> IN Structure(teaser/StructureSentenceIp)
+Structure() 	 OUT -> IN Disconnect(core/DisconnectAfterPacket) 
+# Send a structured IP and then a disconnect to the Wrapper
+Disconnect() 	 OUT -> IN WrapperTitle(teaser/ScoreStepWrapper)
+
 
 # Filter Badwords from (lower case) Text
-Text() OUT -> IN LowerCaseText(strings/LowerCaseString)
-LowerCaseText() OUT -> IN Cleanup(strings/Replace) OUT -> IN SplitTextWords()
-SplitTextWords() OUT -> IN CountTextWords(packets/Counter) OUT -> IN FilterBadwords(teaser/FilterBadwords)
+Text() 			 OUT -> IN LowerCaseText(strings/LowerCaseString)
+LowerCaseText()  OUT -> IN Cleanup(strings/Replace) 
+Cleanup() 		 OUT -> IN SplitTextWords()
+SplitTextWords() OUT -> IN CountTextWords(packets/Counter)
+CountTextWords() OUT -> IN FilterBadwords(teaser/FilterBadwords)
 
 
 ### ScoreByTitle
-LowerCaseTitle() OUT ->  IN SplitTitleWords() OUT -> IN FilterBadwordsTitle(teaser/FilterBadwords)
+LowerCaseTitle() 	  OUT -> IN SplitTitleWords() 
+SplitTitleWords() 	  OUT -> IN FilterBadwordsTitle(teaser/FilterBadwords)
 FilterBadwordsTitle() OUT -> TITLE ScoreByTitle(teaser/ScoreByTitle)
-WrapperTitle() SENTENCE -> IN ScoreByTitle()
-ScoreByTitle() OUT -> SCORE WrapperTitle()
-
-
-
-
+WrapperTitle()   SENTENCE -> IN ScoreByTitle()
+ScoreByTitle() 		  OUT -> SCORE WrapperTitle()
+	
 ### ScoreByKeywords
-# Results from ScoreByTitle -> STOP -> Input ScoreByKeywords
-WrapperTitle() OUT -> IN Stop(flow/Stop) OUT -> IN WrapperKeywords(teaser/ScoreStepWrapper)
-
-# Kick Sentences to WrapperKeywords if Keywords have arrived
-SplitForStop(core/Split) OUT -> READY Stop()
-
+WrapperTitle() OUT -> IN Stop(flow/Stop)
+Stop() 		   OUT -> IN WrapperKeywords(teaser/ScoreStepWrapper)
 
 # Extract Keywords from text without badwords
-FilterBadwords() OUT -> IN ExtractKeywords(teaser/ExtractKeywords)
+FilterBadwords() 	OUT -> IN ExtractKeywords(teaser/ExtractKeywords)
 # Calculate Keyword value in connection to number of words
-CountTextWords() COUNT -> LENGTH ExtractKeywords()
-ExtractKeywords() OUT -> IN SplitForStop() OUT -> KEYWORDS ScoreByKeywords(teaser/ScoreByKeywords)
-WrapperKeywords() SENTENCE -> IN ScoreByKeywords()
-ScoreByKeywords() OUT -> SCORE WrapperKeywords()
+CountTextWords()  COUNT -> LENGTH ExtractKeywords()
+ExtractKeywords()   OUT -> IN SplitForStop(core/Split)
+# Kick Sentences to WrapperKeywords if Keywords have arrived
+SplitForStop()      OUT -> READY Stop()
 
+# Send Keywords to ScoreByKeywords
+SplitForStop() 			OUT -> KEYWORDS ScoreByKeywords(teaser/ScoreByKeywords)
+WrapperKeywords()  SENTENCE -> IN ScoreByKeywords()
+ScoreByKeywords() 		OUT -> SCORE WrapperKeywords()
 
 # Results from ScoreByKeywords -> Input ScoreByPosition
-WrapperKeywords() OUT ->  IN WrapperPosition(teaser/ScoreStepWrapper)
+WrapperKeywords() 		OUT ->  IN WrapperPosition(teaser/ScoreStepWrapper)
 
-CountSentences() COUNT -> LENGTH ScoreByPosition(teaser/ScoreByPosition)
-WrapperPosition() POSITION -> POSITION ScoreByPosition()
-ScoreByPosition() OUT -> SCORE WrapperPosition()
+CountSentences()  	  COUNT -> LENGTH ScoreByPosition(teaser/ScoreByPosition)
+WrapperPosition()  POSITION -> POSITION ScoreByPosition()
+ScoreByPosition() 	    OUT -> SCORE WrapperPosition()
 
 # Results from ScoreByPosition -> Input ScoreByLength
-WrapperPosition() OUT -> IN WrapperLength(teaser/ScoreStepWrapper)
-WrapperLength() SENTENCE -> IN RelevanceByLength(teaser/ScoreByLength)
-RelevanceByLength() OUT -> SCORE WrapperLength()
-
+WrapperPosition() 		OUT -> IN WrapperLength(teaser/ScoreStepWrapper)
+WrapperLength()    SENTENCE -> IN RelevanceByLength(teaser/ScoreByLength)
+RelevanceByLength()     OUT -> SCORE WrapperLength()
 
 # Get Top Sentences
 WrapperLength() OUT -> IN SortBy()
-SortBy() OUT -> IN Range(packets/Range)
-Range() OUT -> IN Extractor()
-
-
-
-
-
+SortBy()        OUT -> IN Range(packets/Range)
+Range()         OUT -> IN Extractor()
 

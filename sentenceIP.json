@@ -1,5 +1,6 @@
 {
 	"sentence": ["a", "sentence", "split", "by", "whitespace"],
+	"readable": "A sentence split by whitespace",
 	"score": 0,
 	"position": 1
 }
