@@ -5,7 +5,6 @@ class AssertEqual extends noflo.Component
   description: 'Forwards Packages'
 
   expection: null
-  log: []
 
   constructor: ->
     @inPorts =
@@ -23,11 +22,9 @@ class AssertEqual extends noflo.Component
       if jsonData == @expection
         @outPorts.out.send "."
       else
-        @outPorts.out.send "F"
-        @log.push "ASSERT FAILED: expected " + @expection + " to equal " + jsonData
+        @outPorts.out.send "F -> ASSERT FAILED: expected " + jsonData + " to equal " + @expection
 
     @inPorts.in.on 'disconnect', =>
-      @outPorts.out.send @log.join("\n")
       @outPorts.out.disconnect() if @outPorts.out.isAttached()
 
 exports.getComponent = -> new AssertEqual

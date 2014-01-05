@@ -1,4 +1,5 @@
 noflo = require 'noflo'
+_ = require 'underscore'
 
 class Frequency extends noflo.Component
 
@@ -19,6 +20,7 @@ class Frequency extends noflo.Component
     @inPorts.in.on 'disconnect', =>
       @outPorts.out.send @buffer if @outPorts.out.isAttached()
       @outPorts.out.disconnect() if @outPorts.out.isAttached()
+      @buffer = []
 
   checkFrequency: (data) ->
     found = false
@@ -28,6 +30,6 @@ class Frequency extends noflo.Component
         found = true
     )
     if not found
-      @buffer.push {ip: data, count: 0}
+      @buffer.push {ip: data, count: 1}
 
 exports.getComponent = -> new Frequency
