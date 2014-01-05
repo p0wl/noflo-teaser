@@ -11,9 +11,9 @@ EXPORT=EXTRACTOR.OUT:OUT
 '. ' 		-> DELIMITER SplitSentences(strings/SplitStr)
 ' ' 		-> DELIMITER SplitTitleWords(strings/SplitStr)
 ' ' 		-> DELIMITER SplitTextWords(strings/SplitStr)
+'10' 	 	-> TOP ExtractKeywords(teaser/ExtractKeywords)
 # Removes special characters from text
 '[^\w ]' 	-> PATTERN Cleanup(strings/Replace)
-
 
 # Handle Input
 TextForward(core/Repeat) 	OUT -> IN Text(core/Split)
@@ -50,7 +50,7 @@ WrapperTitle() OUT -> IN Stop(flow/Stop)
 Stop() 		   OUT -> IN WrapperKeywords(teaser/ScoreStepWrapper)
 
 # Extract Keywords from text without badwords
-FilterBadwords() 	OUT -> IN ExtractKeywords(teaser/ExtractKeywords)
+FilterBadwords() 	OUT -> IN ExtractKeywords()
 # Calculate Keyword value in connection to number of words
 CountTextWords()  COUNT -> LENGTH ExtractKeywords()
 ExtractKeywords()   OUT -> IN SplitForStop(core/Split)
