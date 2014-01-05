@@ -11,49 +11,50 @@ EXPORT=EXTRACTOR.OUT:OUT
 '. ' -> DELIMITER SplitSentences(strings/SplitStr)
 ' ' -> DELIMITER SplitTitleWords(strings/SplitStr)
 ' ' -> DELIMITER SplitTextWords(strings/SplitStr)
-' ' -> DELIMITER Join(objects/Join)
 # Remove special characters from text
 '[^\w ]' -> PATTERN Cleanup(strings/Replace)
 
-# Tolowercase TODO
-TextForward(teaser/Forward) OUT -> IN Text(core/Split)
-TitleForward(teaser/Forward) OUT -> INTITLE Summarize(teaser/Summarize)
 
-# SPLIT Text for multiple Components
+########## Start #########
+TextForward(teaser/Forward) OUT -> IN Text(core/Split)
+TitleForward(teaser/Forward) OUT -> IN LowerCaseTitle(strings/LowerCaseString)
 
 # Split Text to Sentences
 Text() OUT -> IN SplitSentences()
-Text() OUT -> INTEXT Summarize()
-# First Wrapper
 SplitSentences() OUT -> IN CountSentences(packets/Counter) OUT -> IN Structure(teaser/StructureSentenceIp)
 Structure() OUT -> IN DisconnectAfterPacket(core/DisconnectAfterPacket) OUT -> IN WrapperTitle(teaser/ScoreStepWrapper)
 
-# Get Words from Title
-Summarize() TITLE ->  IN SplitTitleWords() OUT -> IN FilterBadwordsTitle(teaser/FilterBadwords)
-
-# Filter Badwords from Text
-Summarize() TEXT -> IN Cleanup(strings/Replace) OUT -> IN SplitTextWords()
+# Filter Badwords from (lower case) Text
+Text() OUT -> IN LowerCaseText(strings/LowerCaseString)
+LowerCaseText() OUT -> IN Cleanup(strings/Replace) OUT -> IN SplitTextWords()
 SplitTextWords() OUT -> IN CountTextWords(packets/Counter) OUT -> IN FilterBadwords(teaser/FilterBadwords)
 
-# Get Keywords
-FilterBadwords() OUT -> IN ExtractKeywords(teaser/ExtractKeywords)
-CountTextWords() COUNT -> LENGTH ExtractKeywords()
 
-# ScoreByTitle
+### ScoreByTitle
+LowerCaseTitle() OUT ->  IN SplitTitleWords() OUT -> IN FilterBadwordsTitle(teaser/FilterBadwords)
 FilterBadwordsTitle() OUT -> TITLE ScoreByTitle(teaser/ScoreByTitle)
 WrapperTitle() SENTENCE -> IN ScoreByTitle()
 ScoreByTitle() OUT -> SCORE WrapperTitle()
 
-# Results from ScoreByTitle -> Input ScoreByKeywords
-WrapperTitle() OUT -> IN Stop(flow/Stop)
-Stop() OUT -> IN WrapperKeywords(teaser/ScoreStepWrapper)
-# Kick Sentences to WrapperKeywords
+
+
+
+### ScoreByKeywords
+# Results from ScoreByTitle -> STOP -> Input ScoreByKeywords
+WrapperTitle() OUT -> IN Stop(flow/Stop) OUT -> IN WrapperKeywords(teaser/ScoreStepWrapper)
+
+# Kick Sentences to WrapperKeywords if Keywords have arrived
 SplitForStop(core/Split) OUT -> READY Stop()
 
-# ScoreByKeywords
+
+# Extract Keywords from text without badwords
+FilterBadwords() OUT -> IN ExtractKeywords(teaser/ExtractKeywords)
+# Calculate Keyword value in connection to number of words
+CountTextWords() COUNT -> LENGTH ExtractKeywords()
 ExtractKeywords() OUT -> IN SplitForStop() OUT -> KEYWORDS ScoreByKeywords(teaser/ScoreByKeywords)
 WrapperKeywords() SENTENCE -> IN ScoreByKeywords()
 ScoreByKeywords() OUT -> SCORE WrapperKeywords()
+
 
 # Results from ScoreByKeywords -> Input ScoreByPosition
 WrapperKeywords() OUT ->  IN WrapperPosition(teaser/ScoreStepWrapper)
@@ -72,7 +73,6 @@ RelevanceByLength() OUT -> SCORE WrapperLength()
 WrapperLength() OUT -> IN SortBy()
 SortBy() OUT -> IN Range(packets/Range)
 Range() OUT -> IN Extractor()
-#Extractor() OUT -> IN Join()
 
 
 
