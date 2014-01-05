@@ -1,15 +1,15 @@
-EXPORT=SPLITARRAY.IN:IN
+EXPORT=FREQUENCY.IN:IN
 EXPORT=DIVIDE.DIVISOR:LENGTH
 EXPORT=UPDATEPROPERTY.OUT:OUT
 
 'count' -> PROPERTY SortBy(underscore/SortBy)
+'desc' -> ORDER SortBy()
 '10' -> LENGTH Range(packets/Range)
 'count' -> KEY ExtractCount(objects/ExtractProperty)
 'count' -> PROPERTY UpdateProperty(objects/SetPropertyValue)
 '1.5' -> MULTIPLIER Multiply(math/Multiply)
 '1.0' -> ADDEND Add(math/Add)
 
-SplitArray(objects/SplitArray) OUT -> IN Frequency(teaser/Frequency)
 Frequency(teaser/Frequency) OUT -> IN SplitToObjects(objects/SplitArray)
 SplitToObjects() OUT -> IN SortBy()
 SortBy() OUT -> IN Range()

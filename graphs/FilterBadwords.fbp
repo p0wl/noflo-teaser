@@ -1,18 +1,8 @@
-EXPORT=CACHE.IN:IN
+EXPORT=GUARD.IN:IN
 EXPORT=GUARD.OUT:OUT
 
-### CONFIGURATION
-'words' -> KEY Cache(cache/Cache)
-'badwords.txt' -> IN Badwords(teaser/JsonFileToPackets)
-
-Badwords() OUT -> IN Split(core/Split)
-Split() OUT -> DENY Guard(flow/Deny)
-
-# Needs to wait until everything is loaded.
-Split() OUT -> IN KickIt(teaser/KickOnDisconnect)
-KickIt() OUT -> FLUSH Cache()
-Cache() OUT -> IN Guard()
+LoadBadwords(teaser/LoadBadwords) OUT -> IN SplitArray(objects/SplitArray)
+SplitArray() OUT -> DENY Guard(flow/Deny)
+'GO' -> READY LoadBadwords()
 
 
-#'a' -> IN Cache()
-#Guard() OUT -> IN Console(core/Output)

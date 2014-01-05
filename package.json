@@ -27,6 +27,7 @@
             "Score": "./components/Score.coffee",
             "Forward": "./components/Forward.coffee",
             "Frequency": "./components/Frequency.coffee",
+            "StructureSentenceIp": "./components/StructureSentenceIp.coffee",
             "ScoreStepWrapper": "./components/ScoreStepWrapper.coffee",
             "RelevanceByPosition": "./components/RelevanceByPosition.coffee",
             "ScoreByKeywords": "./components/ScoreByKeywords.coffee",

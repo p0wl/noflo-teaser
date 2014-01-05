@@ -22,7 +22,8 @@ class ScoreByKeywords extends noflo.Component
       @outPorts.out.disconnect() if @outPorts.out.isAttached()
 
     @inPorts.keywords.on 'data', (data) =>
-      @keywords = data
+      @keywords.push data
+
 
   score: (data) ->
     return (sbs(data, @keywords) + dbs(data, @keywords)) / 2.0 * 10.0 * 2.0
@@ -59,11 +60,11 @@ class ScoreByKeywords extends noflo.Component
           dif = first.num - second.num
           summ += (first.score * second.score) / Math.pow(dif, 2)
       i++
-    k = _.intersection(_.chain(keywords).pluck("word").toArray().value(), words).length + 1
+    k = _.intersection(_.chain(keywords).pluck("ip").toArray().value(), words).length + 1
     return 1 / (k * (k + 1.0)) * summ
 
-  getWordCount = (c, words) ->
-    x = _.findWhere(words, word: c)
-    return (if x then x.sum else 0)
+  getWordCount = (word, keywords) ->
+    x = _.findWhere(keywords, ip: word)
+    return (if x && x.count then x.count else 0)
 
 exports.getComponent = -> new ScoreByKeywords
