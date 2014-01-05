@@ -12,6 +12,8 @@ EXPORT=EXTRACTOR.OUT:OUT
 ' ' -> DELIMITER SplitTitleWords(strings/SplitStr)
 ' ' -> DELIMITER SplitTextWords(strings/SplitStr)
 ' ' -> DELIMITER Join(objects/Join)
+# Remove special characters from text
+'[^\w ]' -> PATTERN Cleanup(strings/Replace)
 
 # Tolowercase TODO
 TextForward(teaser/Forward) OUT -> IN Text(core/Split)
@@ -30,7 +32,7 @@ Structure() OUT -> IN DisconnectAfterPacket(core/DisconnectAfterPacket) OUT -> I
 Summarize() TITLE ->  IN SplitTitleWords() OUT -> IN FilterBadwordsTitle(teaser/FilterBadwords)
 
 # Filter Badwords from Text
-Summarize() TEXT -> IN SplitTextWords()
+Summarize() TEXT -> IN Cleanup(strings/Replace) OUT -> IN SplitTextWords()
 SplitTextWords() OUT -> IN CountTextWords(packets/Counter) OUT -> IN FilterBadwords(teaser/FilterBadwords)
 
 # Get Keywords

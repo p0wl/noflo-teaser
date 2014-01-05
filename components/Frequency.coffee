@@ -23,6 +23,7 @@ class Frequency extends noflo.Component
       @buffer = []
 
   checkFrequency: (data) ->
+    data = data.trim()
     found = false
     _.each(@buffer, (entry) ->
       if (entry.ip == data)
