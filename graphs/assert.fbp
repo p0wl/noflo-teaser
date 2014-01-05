@@ -1,9 +1,9 @@
 # Test file
 
 '{"a": [1]}' -> IN ParseAssert(strings/ParseJson)
-ParseAssert() OUT -> ASSERT AssertEqual(teaser/AssertEqual) 
+ParseAssert() OUT -> EXPECTED AssertEqual(teaser/AssertEqual)
 
-'{"a": 1}' -> IN ParseIn(strings/ParseJson)
+'{"a": [1]}' -> IN ParseIn(strings/ParseJson)
 ParseIn() OUT -> IN AssertEqual()
 
 
