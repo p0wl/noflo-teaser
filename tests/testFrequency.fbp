@@ -1,0 +1,28 @@
+# Test file
+
+Expect(core/Merge) OUT -> IN ParseAssert(strings/ParseJson)
+ParseAssert() OUT -> IN DisconnectAssert(core/DisconnectAfterPacket)
+DisconnectAssert() OUT -> EXPECTED AssertEqual(teaser/AssertEqual)
+
+Actual(core/Merge) OUT -> IN ParseIn(strings/ParseJson)
+ParseIn() OUT -> IN DisconnectActual(core/DisconnectAfterPacket)
+DisconnectActual() OUT -> IN SplitArray(objects/SplitArray)
+SplitArray() OUT ->  IN Frequency(teaser/Frequency) OUT -> IN AssertEqual()
+
+
+AssertEqual() OUT -> IN Console(core/Output)
+
+'[{"ip": "a", "count": 2}]' -> IN Expect()
+'["a", "a"]' -> IN Actual()
+
+'[{"ip": "a", "count": 1}]' -> IN Expect()
+'["a"]' -> IN Actual()
+
+'[{"ip": "a", "count": 1},{"ip": "b", "count": 1}]' -> IN Expect()
+'["a", "b"]' -> IN Actual()
+
+'[{"ip": "a", "count": 1},{"ip": "b", "count": 1}]' -> IN Expect()
+'["a", "b"]' -> IN Actual()
+
+'[{"ip": "a", "count": 1},{"ip": "b", "count": 2}]' -> IN Expect()
+'["a", "b", "b"]' -> IN Actual()
