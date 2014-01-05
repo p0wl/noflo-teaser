@@ -1,0 +1,35 @@
+<script src="noflo.js"></script>
+<script>
+    // Load some graph definition into NoFlo
+
+    someJSON = {
+        "properties": {
+            "name": ""
+        },
+        "exports": [],
+        "processes": {
+            "Console": {
+                "component": "teaser/AssertEqual"
+            }
+        },
+        "connections": [
+            {
+                "data": "1",
+                "tgt": {
+                    "process": "Console",
+                    "port": "in"
+                }
+            }
+        ]
+    };
+
+    noflo.graph.loadJSON(someJSON, function (graph) {
+        // Make all included component libraries available
+        graph.baseDir = '/noflo-custom';
+
+        // Create the live NoFlo network
+        noflo.createNetwork(graph, function (network) {
+            console.log("Network created");
+        });
+    });
+</script>
