@@ -1,8 +1,7 @@
 EXPORT=GUARD.IN:IN
 EXPORT=GUARD.OUT:OUT
 
-LoadBadwords(teaser/LoadBadwords) OUT -> IN SplitArray(objects/SplitArray)
-SplitArray() OUT -> DENY Guard(flow/Deny)
+LoadBadwords(teaser/LoadBadwords) OUT -> DENY Guard(flow/Deny)
 'GO' -> READY LoadBadwords()
 
 
