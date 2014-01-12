@@ -1,0 +1,17 @@
+'3000' -> LISTEN Server(webserver/Server)
+'body' -> KEY ExtractBody(objects/ExtractProperty)
+'req'  -> KEY ExtractRequest(objects/ExtractProperty)
+'url'  -> KEY ExtractUrl(objects/ExtractProperty)
+Server() REQUEST -> IN Split(core/Split)
+
+
+Split() OUT -> IN Disconnect(core/DisconnectAfterPacket) OUT -> IN Parser(webserver/BodyParser)
+Parser(webserver/BodyParser) OUT -> IN ExtractRequest()
+ExtractRequest() OUT -> IN ExtractBody() OUT -> IN ExtractUrl() OUT -> IN C(core/Output)
+
+
+C() OUT -> IN Diffbot(teaser/Diffbot)
+
+Diffbot() OUT -> STRING WriteResponse(webserver/WriteResponse)
+
+Split() OUT -> IN WriteResponse() OUT -> IN SendResponse(webserver/SendResponse)

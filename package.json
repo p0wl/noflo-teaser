@@ -37,7 +37,8 @@
             "LoadBadwords": "./graphs/LoadBadwords.fbp",
             "ScoreByTitle": "./graphs/ScoreByTitle.fbp",
             "ScoreByPosition": "./graphs/ScoreByPosition.fbp",
-            "Teaser": "./graphs/Teaser.fbp"
+            "Teaser": "./graphs/Teaser.fbp",
+            "Diffbot": "./graphs/diffbot.fbp"
         }
     }
 }
