@@ -1,8 +1,9 @@
 # Server Configuration
-'3000' -> LISTEN Server(webserver/Server)
+'22767' -> LISTEN Server(webserver/Server)
 'body' -> KEY ExtractBody(objects/ExtractProperty)
 'req'  -> KEY ExtractRequest(objects/ExtractProperty)
 'url'  -> KEY ExtractUrl(objects/ExtractProperty)
+'\n '   -> DELIMITER Concat(strings/Concat)
 
 Server() REQUEST -> IN Split(core/Split)
 
@@ -30,4 +31,4 @@ SplitArticle()      OUT -> IN ExtractTitle() OUT -> TITLE Teaser()
 SplitArticle()      OUT -> IN ExtractText() OUT -> CONTENT Teaser()
 
 # Send Result from Teaser to Response
-Teaser() OUT -> STRING WriteResponse()
+Teaser() OUT -> IN Concat() OUT -> STRING WriteResponse()
