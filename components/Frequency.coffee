@@ -14,13 +14,15 @@ class Frequency extends noflo.Component
     @outPorts =
       out: new noflo.Port
 
+    @inPorts.in.on 'connect', =>
+      @buffer = []
+
     @inPorts.in.on 'data', (data) =>
       @checkFrequency(data)
 
     @inPorts.in.on 'disconnect', =>
       @outPorts.out.send @buffer if @outPorts.out.isAttached()
       @outPorts.out.disconnect() if @outPorts.out.isAttached()
-      @buffer = []
 
   checkFrequency: (data) ->
     data = data.trim()
