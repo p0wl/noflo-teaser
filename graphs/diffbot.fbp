@@ -1,0 +1,20 @@
+# diffbot Developer Token (paulmoelders@gmail.com)
+'74d1b749c478ed761d9aad56da508533' -> TOKEN GetArticle(diffbot/GetArticle)
+
+# Configuration
+'title' -> KEY ExtractTitle(objects/ExtractProperty)
+'text'  -> KEY ExtractText(objects/ExtractProperty)
+'5'     -> TOP Teaser(teaser/Teaser)
+
+# Graph
+GetArticle() OUT -> IN Split(core/Split)
+Split()      OUT -> IN ExtractTitle() OUT -> TITLE Teaser()
+Split()      OUT -> IN ExtractText() OUT -> CONTENT Teaser()
+Teaser()     OUT -> IN Output(core/Output)
+
+# Start
+'http://techcrunch.com/2013/12/25/google-wants-to-build-the-ultimate-personal-assistant/' -> IN GetArticle()
+
+
+
+

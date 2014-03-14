@@ -9,7 +9,7 @@
     },
     "dependencies": {
         "noflo": "0.3.x",
-        "noflo-strings": "git://github.com/p0wl/noflo-strings#lowerCaseString",
+        "noflo-strings": "git://github.com/p0wl/noflo-strings#concat",
         "noflo-underscore": "git://github.com/p0wl/noflo-underscore.git#sortBy",
         "underscore": "~1.5.2",
         "noflo-objects": "~0.1.8",
@@ -17,7 +17,11 @@
         "noflo-flow": "~0.3.3",
         "noflo-cache": "0.0.3",
         "noflo-core": "~0.1.3",
-        "noflo-math": "0.0.4"
+        "noflo-math": "0.0.4",
+        "noflo-diffbot": "0.0.4"
+    },
+    "devDependencies": {
+        "noflo-test": "0.0.6"
     },
     "noflo": {
         "components": {
